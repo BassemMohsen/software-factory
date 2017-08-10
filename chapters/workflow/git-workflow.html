@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Git workflow &mdash; Project 0.1.0-de05fe0 2017-07-18 documentation</title>
+  <title>Git workflow &mdash; Project 0.1.0-3ea507b 2017-08-10 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Project 0.1.0-de05fe0 2017-07-18 documentation" href="../../index.html"/>
+    <link rel="top" title="Project 0.1.0-3ea507b 2017-08-10 documentation" href="../../index.html"/>
         <link rel="next" title="Base Platform" href="../baseplatform/index.html"/>
         <link rel="prev" title="Introduction" href="../intro/index.html"/> 
 
@@ -90,6 +90,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Git workflow</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#general-setup">General setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#for-each-set-of-changes">For each set of changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#good-commits">Good commits</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../baseplatform/index.html">Base Platform</a></li>
@@ -213,6 +214,25 @@ force-pushed to the forked repo, or they can be added on top of the existing com
 request will be updated either way.</p>
 <p>Whenever the team is satisfied with the changes, pull the changes in by accepting the pull request.</p>
 </div>
+<div class="section" id="good-commits">
+<h2>Good commits<a class="headerlink" href="#good-commits" title="Permalink to this headline">¶</a></h2>
+<p>A good commit (or patch):</p>
+<ol class="arabic simple">
+<li>is atomic: Each commit should contain only one logical change. Use of vague verbs (e.g “update”)
+and phrases like “this patch also” are usually a good indicator that commit is not atomic.</li>
+<li>has a good commit message associated with it.</li>
+</ol>
+<p>Good commit messages are important because of two reasons:</p>
+<ol class="arabic simple">
+<li>Proper history: Each line in the source code can then be traced to the commit that changed it and
+why. Humans tend to have bad memory so even the committer may not remember why they made some
+particular changes after a few months or years of the commit.</li>
+<li>Ease of reviewing: The reviewer need to know why you are suggesting the changes in question when
+you submit a pull-request and they can not always infer the rationale from the changes themselves.</li>
+</ol>
+<p>Keeping in mind that the topic of what qualifies as a good commit message, is highly subjective, the
+authors of this document follow and highly recommend <a class="reference external" href="https://wiki.gnome.org/Git/CommitMessages/">GNOME’s commit message guidelines</a>.</p>
+</div>
 </div>
 
 
@@ -256,7 +276,7 @@ request will be updated either way.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1.0-de05fe0 2017-07-18',
+            VERSION:'0.1.0-3ea507b 2017-08-10',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
