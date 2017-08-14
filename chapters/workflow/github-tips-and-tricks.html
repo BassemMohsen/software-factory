@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Writing the image &mdash; Project 0.1.0-820b288 2017-08-14 documentation</title>
+  <title>GitHub Tips and Tricks &mdash; Project 0.1.0-820b288 2017-08-14 documentation</title>
   
 
   
@@ -33,7 +33,9 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Project 0.1.0-820b288 2017-08-14 documentation" href="../../index.html"/> 
+    <link rel="top" title="Project 0.1.0-820b288 2017-08-14 documentation" href="../../index.html"/>
+        <link rel="next" title="Base Platform" href="../baseplatform/index.html"/>
+        <link rel="prev" title="Git workflow" href="git-workflow.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -83,11 +85,14 @@
             
             
                 <p class="caption"><span class="caption-text">Table of contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/git-workflow.html">Git workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/github-tips-and-tricks.html">GitHub Tips and Tricks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Base Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git-workflow.html">Git workflow</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GitHub Tips and Tricks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#managing-pull-requests">Managing Pull requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../baseplatform/index.html">Base Platform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ci-and-cd/index.html">Continuous integration and deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sdk/index.html">Software Development Kit</a></li>
 </ul>
@@ -120,11 +125,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
       
-    <li>Writing the image</li>
+    <li>GitHub Tips and Tricks</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/chapters/baseplatform/deploying-and-booting-the-image.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/chapters/workflow/github-tips-and-tricks.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -134,41 +139,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="writing-the-image">
-<h1>Writing the image<a class="headerlink" href="#writing-the-image" title="Permalink to this headline">¶</a></h1>
-<p>This section describes how to write the build output, a ready disk-image, to a removable media. Further information can be found in the <a class="reference external" href="http://git.yoctoproject.org/cgit.cgi/poky/tree/README.hardware">Poky documentation</a>.</p>
-<div class="section" id="nuc-minnowboard">
-<h2>NUC / Minnowboard<a class="headerlink" href="#nuc-minnowboard" title="Permalink to this headline">¶</a></h2>
-<p>Use the <code class="docutils literal"><span class="pre">dd</span></code> utility to write the image to the raw block device. For example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>dd <span class="k">if</span><span class="o">=</span>core-image-pelux-intel-corei7-64.wic <span class="nv">of</span><span class="o">=</span>&lt;host-device&gt; <span class="nv">bs</span><span class="o">=</span>4M
-</pre></div>
-</div>
-</div>
-<div class="section" id="raspberry-pi-3">
-<h2>Raspberry Pi 3<a class="headerlink" href="#raspberry-pi-3" title="Permalink to this headline">¶</a></h2>
-<p>Write the generated image file to an SD-card using e.g.:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>dd <span class="k">if</span><span class="o">=</span>core-image-pelux-raspberrypi3.rpi-sdimg <span class="nv">of</span><span class="o">=</span>&lt;host-device&gt; <span class="nv">bs</span><span class="o">=</span>4M
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal"><span class="pre">&lt;host-device&gt;</span></code> is the SD-card or other removable media device on the host, e.g. <code class="docutils literal"><span class="pre">/dev/mmcblk0</span></code> or <code class="docutils literal"><span class="pre">/dev/sdc</span></code>. More information on how to discover the SD-card or other media device can be found in the <a class="reference external" href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">following documentation</a>.</p>
-</div>
-</div>
-</div>
-<div class="section" id="booting-on-target-hardware">
-<h1>Booting on target hardware<a class="headerlink" href="#booting-on-target-hardware" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="nuc">
-<h2>NUC<a class="headerlink" href="#nuc" title="Permalink to this headline">¶</a></h2>
-<p>Plug in the USB-stick and boot the target, make sure to configure EFI to boot from USB. No other actions should be needed.</p>
-</div>
-<div class="section" id="id1">
-<h2>Raspberry Pi 3<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>Insert the SD-card into the Raspberry Pi and boot it up.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Login as user <code class="docutils literal"><span class="pre">root</span></code>.</p>
-</div>
+  <div class="section" id="github-tips-and-tricks">
+<span id="githubtipsandtricks"></span><h1>GitHub Tips and Tricks<a class="headerlink" href="#github-tips-and-tricks" title="Permalink to this headline">¶</a></h1>
+<p>Following are tips and tricks specific to GitHub. This might work similarly
+on other platforms as well but no guarantees are made.</p>
+<div class="section" id="managing-pull-requests">
+<h2>Managing Pull requests<a class="headerlink" href="#managing-pull-requests" title="Permalink to this headline">¶</a></h2>
+<p>Using the Pull requests view located in the top bar on the GitHub page
+(<a class="reference external" href="https://github.com/pulls">https://github.com/pulls</a>) it is possible to view all Pull requests where:</p>
+<ul class="simple">
+<li>Your user is the creator.</li>
+<li>Your user is assigned.</li>
+<li>Your user is mentioned.</li>
+<li>Your user is requested for review.</li>
+</ul>
+<p>This is a really neat way of getting the big picture of your engagement in
+Pull requests. However, when reviewing a Pull request that Pull request
+will no longer be listed in the “Review request” tab even when the review
+requests changes. To work around this, make sure to assign your user to the
+Pull request using “assign yourself” under “Assignees” to the right of the
+comments field in the Pull request. This way the Pull request will still be
+listed under “Assigned”.</p>
 </div>
 </div>
 
@@ -176,6 +167,15 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../baseplatform/index.html" class="btn btn-neutral float-right" title="Base Platform" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="git-workflow.html" class="btn btn-neutral" title="Git workflow" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
