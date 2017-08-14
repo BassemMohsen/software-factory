@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Base Platform &mdash; Project 0.1.0-820b288 2017-08-14 documentation</title>
+  <title>Base Platform &mdash; Project 0.1.0-b5394e9 2017-08-14 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Project 0.1.0-820b288 2017-08-14 documentation" href="../../index.html"/>
+    <link rel="top" title="Project 0.1.0-b5394e9 2017-08-14 documentation" href="../../index.html"/>
         <link rel="next" title="Continuous integration and deployment" href="../ci-and-cd/index.html"/>
         <link rel="prev" title="GitHub Tips and Tricks" href="../workflow/github-tips-and-tricks.html"/> 
 
@@ -110,6 +110,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#building-the-sdk-installer">Building the SDK installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-manifest">Creating a manifest</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-git-repo-for-the-new-manifests">Creating a git repo for the new manifests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tweaking-the-manifest-files">Tweaking the manifest files</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../ci-and-cd/index.html">Continuous integration and deployment</a></li>
@@ -294,6 +299,72 @@ matches your target root filesystem. The installer will be created in
 tmp/deploy/sdk directory. Please refer to <a class="reference internal" href="../sdk/installing-the-sdk.html#installing-sdk"><span class="std std-ref">Installing the SDK</span></a> for setup and
 usage of the generated SDK installer.</p>
 </div>
+<div class="section" id="creating-a-manifest">
+<h2>Creating a manifest<a class="headerlink" href="#creating-a-manifest" title="Permalink to this headline">¶</a></h2>
+<p>Manifest repositories are used to store repo tool <a class="footnote-reference" href="#repotool" id="id4">[2]</a> manifests. These manifests are used, in repo tool, to fetch all the sources, tools and scripts needed to build a PELUX-based system.</p>
+<p>The PELUX project contains a good reference <a class="footnote-reference" href="#pelux-manifests" id="id5">[3]</a> for how a manifest repository
+should look like. When creating a new manifest repository, it is a good idea to duplicate the PELUX manifests, and see which parts can be kept in your own manifests.</p>
+<p>It is not necessary to <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></code> the PELUX manifests, since the git history is likely not important for your project. Instead of <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></code>:ing the manifests, you may opt to simply copy them. To do this, browse to the PELUX manifests GitHub page <a class="footnote-reference" href="#pelux-manifests" id="id6">[3]</a>, and press the “Clone or download” button, then press “Download ZIP”.</p>
+<p>In the examples below, it is assumed that the downloaded zip is named “pelux-manifests.zip”.</p>
+<div class="section" id="creating-a-git-repo-for-the-new-manifests">
+<h3>Creating a git repo for the new manifests<a class="headerlink" href="#creating-a-git-repo-for-the-new-manifests" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">repo</span></code> tool assumes all manifests to be stored in a git repo, to keep track of changes, thus a new git repository must be created for the manifests.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir my-manifests
+$ <span class="nb">cd</span> my-manifests
+$ git init
+$ unzip &lt;path-to-zip&gt;/pelux-manifests.zip
+</pre></div>
+</div>
+<p>Do not stage and commit the newly unpacked files just yet. Some tweaks must be done to the files before they can be re-used by your project.</p>
+</div>
+<div class="section" id="tweaking-the-manifest-files">
+<h3>Tweaking the manifest files<a class="headerlink" href="#tweaking-the-manifest-files" title="Permalink to this headline">¶</a></h3>
+<p>Below follows general recommendations for modifications of common files.</p>
+<ul class="simple">
+<li>The <code class="docutils literal"><span class="pre">ci-scripts</span></code> directory can likely be kept as-is, if these scripts seem useful for your project</li>
+<li>The <code class="docutils literal"><span class="pre">doc</span></code> directory should contain extra documentation for the repository, if applicable</li>
+<li>The vagrant-cookbook directory should contain a <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span></code> pointing to <code class="docutils literal"><span class="pre">git&#64;github.com:Pelagicore/vagrant-cookbook.git</span></code>, or a different repository containing vagrant scripts. This submodule is used by the <code class="docutils literal"><span class="pre">Vagrantfile</span></code>, and is only needed if Vagrant <a class="footnote-reference" href="#vagrant" id="id7">[4]</a> is used for the project.</li>
+<li>CONTRIBUTING, LICENSE, and README should be updated according to the <code class="docutils literal"><span class="pre">pelux-manifests</span></code> license and your project guidelines</li>
+<li>The <code class="docutils literal"><span class="pre">Dockerfile</span></code> can likely be left as-is, and can be customized according to your project needs for Docker builds</li>
+<li>The <code class="docutils literal"><span class="pre">Jenkinsfile</span></code> sets up a Jenkins <a class="footnote-reference" href="#jenkins" id="id8">[5]</a> pipeline <a class="footnote-reference" href="#jenkinspipeline" id="id9">[6]</a> for Continuous Integration (CI) builds of your manifest. This file must be modified to accomodate your project. In particular:
+* Directory names must be updated (for example, the TEMPLATECONF variable bust be set to match your layer structure)
+* Image names must be updated to reflect your own image names (<code class="docutils literal"><span class="pre">core-image-pelux</span></code> may become <code class="docutils literal"><span class="pre">core-image-yourproject</span></code>)
+* In general, this file can be customized to suite your project’s CI needs</li>
+<li>The <code class="docutils literal"><span class="pre">Vagrantfile</span></code> should be usable as-is, but can be modified to accommodate your project’s CI and virtualized build needs</li>
+<li>The <code class="docutils literal"><span class="pre">xml</span></code> files in the repository are the actual manifest files. The manifest files in the repository must be modified to indicate the correct repositories. It is common to structure the manifets files in a hierachical fashion, such that a common base manifest is created, and (possibly several) specialized manifests include this base manifest. An example of this can be seen in the PELUX manifests repository, where the <code class="docutils literal"><span class="pre">pelux-base.xml</span></code> manifest is included in, for instance, the <code class="docutils literal"><span class="pre">pelux-intel.xml</span></code> and <code class="docutils literal"><span class="pre">pelux-rpi.xml</span></code> manifests.</li>
+</ul>
+<table class="docutils footnote" frame="void" id="repotool" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="https://source.android.com/source/using-repo">https://source.android.com/source/using-repo</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="pelux-manifests" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id5">1</a>, <a class="fn-backref" href="#id6">2</a>)</em> <a class="reference external" href="https://github.com/Pelagicore/pelux-manifests">https://github.com/Pelagicore/pelux-manifests</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="vagrant" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[4]</a></td><td><a class="reference external" href="https://source.android.com/source/using-repo">https://source.android.com/source/using-repo</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="jenkins" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[5]</a></td><td><a class="reference external" href="https://www.vagrantup.com/">https://www.vagrantup.com/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="jenkinspipeline" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id9">[6]</a></td><td><a class="reference external" href="https://jenkins.io/doc/book/pipeline/">https://jenkins.io/doc/book/pipeline/</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 
 
@@ -337,7 +408,7 @@ usage of the generated SDK installer.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1.0-820b288 2017-08-14',
+            VERSION:'0.1.0-b5394e9 2017-08-14',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
