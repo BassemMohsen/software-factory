@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Writing the image &mdash; software-factory 0.1.0-34fb75d 2017-08-16 documentation</title>
+  <title>Writing the image &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="software-factory 0.1.0-34fb75d 2017-08-16 documentation" href="../../index.html"/> 
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../index.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -85,12 +85,11 @@
                 <p class="caption"><span class="caption-text">Table of contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/git-workflow.html">Git workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/github-tips-and-tricks.html">GitHub Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow/index.html">Git workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Base Platform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ci-and-cd/index.html">Continuous integration and deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sdk/index.html">Software Development Kit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../licensing/index.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
 </ul>
 
             
@@ -137,24 +136,29 @@
             
   <div class="section" id="writing-the-image">
 <h1>Writing the image<a class="headerlink" href="#writing-the-image" title="Permalink to this headline">¶</a></h1>
-<p>This section describes how to write the build output, a ready disk-image, to a removable media. Further information can be found in the <a class="reference external" href="http://git.yoctoproject.org/cgit.cgi/poky/tree/README.hardware">Poky documentation</a>.</p>
-<div class="section" id="nuc-minnowboard">
-<h2>NUC / Minnowboard<a class="headerlink" href="#nuc-minnowboard" title="Permalink to this headline">¶</a></h2>
+<p>This section describes how to write the build output, a ready disk-image, to a removable media.
+Further information can be found in the <a class="reference external" href="http://git.yoctoproject.org/cgit.cgi/poky/tree/README.hardware">Poky documentation</a>.</p>
+<div class="section" id="general-instructions">
+<h2>General instructions<a class="headerlink" href="#general-instructions" title="Permalink to this headline">¶</a></h2>
 <p>Use the <code class="docutils literal"><span class="pre">dd</span></code> utility to write the image to the raw block device. For example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>dd <span class="k">if</span><span class="o">=</span>core-image-pelux-intel-corei7-64.wic <span class="nv">of</span><span class="o">=</span>&lt;host-device&gt; <span class="nv">bs</span><span class="o">=</span>4M
-</pre></div>
-</div>
-</div>
-<div class="section" id="raspberry-pi-3">
-<h2>Raspberry Pi 3<a class="headerlink" href="#raspberry-pi-3" title="Permalink to this headline">¶</a></h2>
-<p>Write the generated image file to an SD-card using e.g.:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>dd <span class="k">if</span><span class="o">=</span>core-image-pelux-raspberrypi3.rpi-sdimg <span class="nv">of</span><span class="o">=</span>&lt;host-device&gt; <span class="nv">bs</span><span class="o">=</span>4M
+<div class="highlight-bash"><div class="highlight"><pre><span></span>dd <span class="k">if</span><span class="o">=</span>&lt;image-name&gt; <span class="nv">of</span><span class="o">=</span>&lt;host-device&gt; <span class="nv">bs</span><span class="o">=</span>4M
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal"><span class="pre">&lt;host-device&gt;</span></code> is the SD-card or other removable media device on the host, e.g. <code class="docutils literal"><span class="pre">/dev/mmcblk0</span></code> or <code class="docutils literal"><span class="pre">/dev/sdc</span></code>. More information on how to discover the SD-card or other media device can be found in the <a class="reference external" href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">following documentation</a>.</p>
+<p class="last">The &lt;image-name&gt; depends on your arch and image recipe name. You can find all images in <code class="docutils literal"><span class="pre">tmp/deploy/images/&lt;arch&gt;/</span></code> in your build directory.</p>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">&lt;host-device&gt;</span></code> is the SD-card or other removable media device on the host, e.g.  <code class="docutils literal"><span class="pre">/dev/mmcblk0</span></code> or <code class="docutils literal"><span class="pre">/dev/sdc</span></code>. More information on how to discover the SD-card or other media device can be found in the <a class="reference external" href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">following documentation</a>.</p>
+</div>
+</div>
+<div class="section" id="image-names-for-pelux-targets">
+<h2>Image names for PELUX targets<a class="headerlink" href="#image-names-for-pelux-targets" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>NUC/Minnowboard: <code class="docutils literal"><span class="pre">core-image-pelux-intel-corei7-64.wic</span></code></li>
+<li>Raspberry Pi 3: <code class="docutils literal"><span class="pre">core-image-pelux-raspberrypi3.rpi-sdimg</span></code></li>
+</ul>
 </div>
 </div>
 <div class="section" id="booting-on-target-hardware">
@@ -163,8 +167,8 @@
 <h2>NUC<a class="headerlink" href="#nuc" title="Permalink to this headline">¶</a></h2>
 <p>Plug in the USB-stick and boot the target, make sure to configure EFI to boot from USB. No other actions should be needed.</p>
 </div>
-<div class="section" id="id1">
-<h2>Raspberry Pi 3<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="raspberry-pi-3">
+<h2>Raspberry Pi 3<a class="headerlink" href="#raspberry-pi-3" title="Permalink to this headline">¶</a></h2>
 <p>Insert the SD-card into the Raspberry Pi and boot it up.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -205,7 +209,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1.0-34fb75d 2017-08-16',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

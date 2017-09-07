@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Jenkins &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../../search.html"/>
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../../../../index.html"/> 
+
+  
+  <script src="../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> software-factory
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../chapters/intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../chapters/workflow/index.html">Git workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../chapters/baseplatform/index.html">Base Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../chapters/sdk/index.html">Software Development Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../licensing/index.html">Licensing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../../index.html">software-factory</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Jenkins</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/swf-blueprint/docs/articles/infrastructure/ci-cd/jenkins.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jenkins">
+<h1>Jenkins<a class="headerlink" href="#jenkins" title="Permalink to this headline">¶</a></h1>
+<p>Jenkins is the build server which utilizes build slaves to build code and to archive the artifacts from those builds.</p>
+<p>The Jenkins project offers preinstalled Docker images which can be used to vastly shorten the setup time of such a server. Here is an example systemd service file which can be used to both set up and start a docker container which has a preinstalled instance of Jenkins. It will save the configuration in a docker volume called <code class="docutils literal"><span class="pre">jenkins_home</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">docker.jenkins.service</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-none"><div class="highlight"><pre><span></span>[Unit]
+Description=Jenkins Container
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull jenkinsci/jenkins:lts
+ExecStart=/usr/bin/docker run --rm --name %n -p 8080:8080 --env JENKINS_OPTS=&quot;--prefix=/jenkins&quot; --env JENKINS_JAVA_OPTIONS=&quot;-Djava.io.tmpdir=$JENKINS_HOME/tmp&quot; -v jenkins_home:/var/jenkins_home -v /var/www/:/var/www/ jenkinsci/jenkins:lts
+
+[Install]
+WantedBy=multi-user.target
+</pre></div>
+</div>
+</div>
+<p>This runs Jenkins and mounts <code class="docutils literal"><span class="pre">/var/www</span></code> into the Jenkins container at the same place which makes it possible for Jenkins to store some artifacts in a place where a http server can reach them and serve them.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>First, install docker according to the installation instructions for your distribution. These instructions are available in the Docker website <a class="footnote-reference" href="#dockerinstall" id="id1">[1]</a>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># Copy the Jenkins service file from the code block above into your systemd service directory</span>
+cp docker.jenkins.service /lib/systemd/system/
+
+<span class="c1"># Make jenkins start up on boot and start it now too</span>
+systemctl <span class="nb">enable</span> docker.jenkins.service
+systemctl start docker.jenkins.service
+</pre></div>
+</div>
+<p>Starting it the first time can take a couple of minutes depending on your internet connection because it then downloads the docker image and sets everything up, so be patient.</p>
+<p>Once it is started you need the admin password which you can find in the logs:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>journalctl -b -u docker.jenkins
+...
+Jul 03 12:37:22 vps429458 docker[9553]: Jenkins initial setup is required. An admin user has been created and a password generated.
+Jul 03 12:37:22 vps429458 docker[9553]: Please use the following password to proceed to installation:
+Jul 03 12:37:22 vps429458 docker[9553]: 932c528c68d14e24aab036f2021e2dee
+Jul 03 12:37:22 vps429458 docker[9553]: This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+</pre></div>
+</div>
+<p>Then you can open this jenkins instance in your browser and put this password there so you can set everything up:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>http://localhost:8080/jenkins/
+</pre></div>
+</div>
+<p>After that you can also set up a Nginx instance as a proxy so you don’t need the port number in the URL, but you don’t need to do that on your development machine.</p>
+</div>
+<div class="section" id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<p>Normally we use the proposed plugins during installation and then add the following:</p>
+<ul class="simple">
+<li>Copy Artifact Plugin</li>
+<li>Build Monitor View</li>
+</ul>
+<table class="docutils footnote" frame="void" id="dockerinstall" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://docs.docker.com/engine/installation/">https://docs.docker.com/engine/installation/</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Pelagicore AB.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

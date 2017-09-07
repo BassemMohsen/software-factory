@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Source code repository directory structure &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> software-factory
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/workflow/index.html">Git workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/baseplatform/index.html">Base Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/sdk/index.html">Software Development Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing/index.html">Licensing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">software-factory</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Source code repository directory structure</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/swf-blueprint/docs/articles/sdk/directory-structure.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="source-code-repository-directory-structure">
+<h1>Source code repository directory structure<a class="headerlink" href="#source-code-repository-directory-structure" title="Permalink to this headline">¶</a></h1>
+<p>In order to make it easier to navigate through new repositories they
+should follow a common directory structure. The tree structure below
+shows a repository with two components sharing a ‘doc’ directory and
+‘component-test’ directory. Many repos will likely contain only one
+component, in which case the structure should be the same but with only
+one subdirectory with the source code etc.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>.
+├── cmake_modules
+├── component-A
+│   ├── include
+│   ├── src
+│   ├── unit-test
+│   │   ├── test-data
+├── component-B
+│   ├── include
+│   ├── src
+│   ├── unit-test
+│   │   ├── test-data
+├── component-test
+│   ├── test-data
+├── doc
+│   ├── images
+│   │   └── *.png
+│   ├── design.md
+│   ├── mainpage.h
+├── scripts
+├── DEPENDENCIES
+├── LICENSE
+└── README.md
+</pre></div>
+</div>
+<p>The table below describes the directories and their purpose. The
+&lt;component-subdir&gt; represents e.g. the ‘component-A’ or ‘component-B’
+directories in the tree structure above. Some directories are only
+relevant in some situations, e.g. a ‘test-data’ dir is only relevant
+if there is any actual test data of course.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Directory</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scripts</td>
+<td>Contains e.g. utility scripts that might be needed to e.g. set up an environment or such like.</td>
+</tr>
+<tr class="row-odd"><td>cmake_modules</td>
+<td>Contains any CMake ‘find’ modules.</td>
+</tr>
+<tr class="row-even"><td>doc</td>
+<td>Contains doxygen files for generating reference documentation that is not part of any class
+etc, e.g. introductory pages and topic overviews. Contains design.md, describing the design
+of the component in an arc42 structure.</td>
+</tr>
+<tr class="row-odd"><td>doc/images</td>
+<td>Contains images for the design and doxygen documentation.
+The preferred file format is png. If the image is generated from another document, it is
+recommended to keep that document here as well, e.g. a UML model.</td>
+</tr>
+<tr class="row-even"><td>component-test</td>
+<td>Contains tests and any stubs used in component tests.</td>
+</tr>
+<tr class="row-odd"><td>component-test/test-data</td>
+<td>Contains any test data that the component tests uses.</td>
+</tr>
+<tr class="row-even"><td>&lt;component-subdir&gt;/include</td>
+<td>Contains any public header files, those that would typically be installed in a development package.</td>
+</tr>
+<tr class="row-odd"><td>&lt;component-subdir&gt;/src</td>
+<td>Contains source and private header files.</td>
+</tr>
+<tr class="row-even"><td>&lt;component-subdir&gt;/unit-test</td>
+<td>Contains unit tests and any stubs used in unit tests.</td>
+</tr>
+<tr class="row-odd"><td>&lt;component-subdir&gt;/unit-test/test-data</td>
+<td>Contains any test data that the unit tests uses.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="mandatory-files">
+<h2>Mandatory files<a class="headerlink" href="#mandatory-files" title="Permalink to this headline">¶</a></h2>
+<p>Certain files should be found in every repository, those files are described below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">File</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>README(.md)</td>
+<td>A top-level README giving a brief introduction to the repository.
+How to build, how to run tests, other “good to know” information.
+The .md suffix for markdown syntax may be used.</td>
+</tr>
+<tr class="row-odd"><td>LICENSE</td>
+<td>The source code and project license.</td>
+</tr>
+<tr class="row-even"><td>DEPENDENCIES</td>
+<td>Describes any non-trivial dependency used by a component.
+Typically a library linked against such as libfoo would be listed while a compiler and libstdc++ would not be listed.</td>
+</tr>
+<tr class="row-odd"><td>CONTRIBUTING.md</td>
+<td><dl class="first last docutils">
+<dt>For OSS projects this file should exist and contain the following information:</dt>
+<dd><ul class="first last simple">
+<li>How and where to file bug reports and what information is expected in them.</li>
+<li>How the development flow works, for instance forks and merge requests.</li>
+<li>Brief about code standard</li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td>doc/mainpage.h</td>
+<td>Introductory component documentation.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="directory-naming">
+<h2>Directory naming<a class="headerlink" href="#directory-naming" title="Permalink to this headline">¶</a></h2>
+<p>All directories should be lower case only, and using “-” as a separator
+between words. No other symbols other than [a..z], [0..9] and “-” are
+allowed. Exceptions are allowed if there is a technical need which is
+cumbersome to work around.</p>
+</div>
+<div class="section" id="file-naming">
+<h2>File naming<a class="headerlink" href="#file-naming" title="Permalink to this headline">¶</a></h2>
+<p>The source code and header files should be named using lower case letters
+only, without any word separator. No other symbols other than [a..z] and
+[0..9] are allowed. C++ source files should be suffixed “.cpp” and header
+files “.h”. The exception is test code files where an underscore is used
+to separate the name of what is tested and a suffix showing that it is a
+test, e.g. a unit with the name ‘mymodule.cpp’/’mymodule.h’ would have a
+corresponding unit test implemented in a file named
+‘mymodule_unittest.cpp’.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The repository meta data files such as the readme, license and makefiles are allowed to use upper case letters in their naming.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Pelagicore AB.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

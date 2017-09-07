@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to the Software Factory documentation &mdash; software-factory 0.1.0-34fb75d 2017-08-16 documentation</title>
+  <title>Welcome to the Software Factory documentation &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="software-factory 0.1.0-34fb75d 2017-08-16 documentation" href="#"/>
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="#"/>
         <link rel="next" title="Introduction" href="chapters/intro/index.html"/> 
 
   
@@ -86,12 +86,11 @@
                 <p class="caption"><span class="caption-text">Table of contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="chapters/intro/index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/workflow/git-workflow.html">Git workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/workflow/github-tips-and-tricks.html">GitHub Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/workflow/index.html">Git workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/baseplatform/index.html">Base Platform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/sdk/index.html">Software Development Kit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/licensing/index.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
 </ul>
 
             
@@ -138,24 +137,23 @@
             
   <div class="section" id="welcome-to-the-software-factory-documentation">
 <h1>Welcome to the Software Factory documentation<a class="headerlink" href="#welcome-to-the-software-factory-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Revision: 0.1.0-34fb75d 2017-08-16</p>
+<p>Revision: 0.1.0-18dcd10 2017-09-07</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Table of contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="chapters/intro/index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/workflow/git-workflow.html">Git workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapters/workflow/git-workflow.html#general-setup">General setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/workflow/git-workflow.html#for-each-set-of-changes">For each set of changes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/workflow/git-workflow.html#good-commits">Good commits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/workflow/git-workflow.html#platform-specific-tips-and-tricks">Platform specific Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/workflow/index.html">Git workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/workflow/index.html#general-setup">General setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/workflow/index.html#for-each-set-of-changes">For each set of changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/workflow/index.html#good-commits">Good commits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/workflow/index.html#github-tips-and-tricks">GitHub Tips and Tricks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/workflow/index.html#managing-pull-requests">Managing Pull requests</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/workflow/github-tips-and-tricks.html">GitHub Tips and Tricks</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapters/workflow/github-tips-and-tricks.html#managing-pull-requests">Managing Pull requests</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/baseplatform/index.html">Base Platform</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#prerequisites-for-building-pelux">Prerequisites for building PELUX</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#prerequisites-for-building-a-proj-name-image">Prerequisites for building a PELUX image</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#dependencies-for-debian-users">Dependencies for Debian users</a></li>
 </ul>
 </li>
@@ -165,19 +163,18 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#obtaining-a-pelux-release">Obtaining a PELUX release</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#writing-the-image">Writing the image</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#nuc-minnowboard">NUC / Minnowboard</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#raspberry-pi-3">Raspberry Pi 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#general-instructions">General instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#image-names-for-pelux-targets">Image names for PELUX targets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#booting-on-target-hardware">Booting on target hardware</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#nuc">NUC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#id3">Raspberry Pi 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#raspberry-pi-3">Raspberry Pi 3</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#building-the-sdk-installer">Building the SDK installer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#creating-a-manifest">Creating a manifest</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#creating-a-git-repo-for-the-new-manifests">Creating a git repo for the new manifests</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#tweaking-the-manifest-files">Tweaking the manifest files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#manifests">Manifests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#creating-a-manifest">Creating a manifest</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#creating-a-new-layer">Creating a new layer</a><ul>
@@ -219,7 +216,7 @@
 <li class="toctree-l2"><a class="reference internal" href="chapters/sdk/index.html#deploying-and-running-a-binary-executable-on-target">Deploying and running a binary executable on target</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/licensing/index.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
 </ul>
 </div>
 </div>
@@ -263,7 +260,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1.0-34fb75d 2017-08-16',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

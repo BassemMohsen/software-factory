@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Continuous integration and deployment &mdash; software-factory 0.1.0-34fb75d 2017-08-16 documentation</title>
+  <title>Continuous integration and deployment &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="software-factory 0.1.0-34fb75d 2017-08-16 documentation" href="../../index.html"/>
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../index.html"/>
         <link rel="next" title="Software Development Kit" href="../sdk/index.html"/>
         <link rel="prev" title="Base Platform" href="../baseplatform/index.html"/> 
 
@@ -87,8 +87,7 @@
                 <p class="caption"><span class="caption-text">Table of contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/git-workflow.html">Git workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/github-tips-and-tricks.html">GitHub Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow/index.html">Git workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../baseplatform/index.html">Base Platform</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Continuous integration and deployment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#setting-up-automated-testing-on-a-nuc-using-yocto">Setting up automated testing on a NUC using Yocto</a><ul>
@@ -100,7 +99,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../sdk/index.html">Software Development Kit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../licensing/index.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
 </ul>
 
             
@@ -174,7 +173,7 @@ ssh connection. This how-to will not describe these hooks though.</p>
 <h3>Preparing the NUC<a class="headerlink" href="#preparing-the-nuc" title="Permalink to this headline">¶</a></h3>
 <p>There is an image called <cite>core-image-testmaster</cite> which is used as a basis for the setup. Following are a number of
 manual steps that need to be performed when deploying this image. The <cite>repo</cite> tool is used in the examples, for
-more information see <a class="reference internal" href="../baseplatform/using-the-repo-tool.html#using-the-repo-tool"><span class="std std-ref">Using the repo tool</span></a></p>
+more information see <a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/using-the-repo-tool.html#using-the-repo-tool"><span class="std std-ref">Using the repo tool</span></a></p>
 <p>Start by building the image:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir test-automation <span class="o">&amp;&amp;</span> <span class="nb">cd</span> test-automation
 repo init -u https://github.com/Pelagicore/pelux-manifests.git -m pelux-intel-qtauto.xml -b master
@@ -364,7 +363,7 @@ This might be related to multiple network interfaces confusing the autodetection
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1.0-34fb75d 2017-08-16',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

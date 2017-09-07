@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Base Platform &mdash; software-factory 0.1.0-34fb75d 2017-08-16 documentation</title>
+  <title>Base Platform &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
   
 
   
@@ -33,9 +33,9 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="software-factory 0.1.0-34fb75d 2017-08-16 documentation" href="../../index.html"/>
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../index.html"/>
         <link rel="next" title="Continuous integration and deployment" href="../ci-and-cd/index.html"/>
-        <link rel="prev" title="GitHub Tips and Tricks" href="../workflow/github-tips-and-tricks.html"/> 
+        <link rel="prev" title="Git workflow" href="../workflow/index.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -87,10 +87,9 @@
                 <p class="caption"><span class="caption-text">Table of contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/git-workflow.html">Git workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/github-tips-and-tricks.html">GitHub Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow/index.html">Git workflow</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Base Platform</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#prerequisites-for-building-pelux">Prerequisites for building PELUX</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites-for-building-a-proj-name-image">Prerequisites for building a PELUX image</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dependencies-for-debian-users">Dependencies for Debian users</a></li>
 </ul>
 </li>
@@ -100,19 +99,22 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#obtaining-a-pelux-release">Obtaining a PELUX release</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#writing-the-image">Writing the image</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#nuc-minnowboard">NUC / Minnowboard</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#raspberry-pi-3">Raspberry Pi 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-instructions">General instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image-names-for-pelux-targets">Image names for PELUX targets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#booting-on-target-hardware">Booting on target hardware</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#nuc">NUC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Raspberry Pi 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#raspberry-pi-3">Raspberry Pi 3</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#building-the-sdk-installer">Building the SDK installer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-a-manifest">Creating a manifest</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#creating-a-git-repo-for-the-new-manifests">Creating a git repo for the new manifests</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tweaking-the-manifest-files">Tweaking the manifest files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manifests">Manifests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-manifest">Creating a manifest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-git-repo-for-a-pelux-based-manifest">Creating a git repo for a PELUX-based manifest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tweaking-the-manifest-files">Tweaking the manifest files</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-a-new-layer">Creating a new layer</a><ul>
@@ -130,7 +132,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../ci-and-cd/index.html">Continuous integration and deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sdk/index.html">Software Development Kit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../licensing/index.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
 </ul>
 
             
@@ -178,9 +180,9 @@
   <div class="section" id="base-platform">
 <h1>Base Platform<a class="headerlink" href="#base-platform" title="Permalink to this headline">¶</a></h1>
 <p>PELUX as a platform is compiled from a lot of different projects with help of <a class="reference external" href="http://yoctoproject.org/">Yocto</a>. In the long run a platform developer will need to get comfortable reading <a class="reference external" href="https://www.yoctoproject.org/documentation">their documentation</a> but it should be enough to read the chapters here to get started.</p>
-<div class="section" id="prerequisites-for-building-pelux">
-<h2>Prerequisites for building PELUX<a class="headerlink" href="#prerequisites-for-building-pelux" title="Permalink to this headline">¶</a></h2>
-<p>The following packages must be installed in order to build PELUX from source:</p>
+<div class="section" id="prerequisites-for-building-a-proj-name-image">
+<h2>Prerequisites for building a PELUX image<a class="headerlink" href="#prerequisites-for-building-a-proj-name-image" title="Permalink to this headline">¶</a></h2>
+<p>Yocto requires the following packages to be installed in order to build an image from source:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>git sed wget cvs subversion git-core coreutils unzip gawk python-pysqlite2
 diffstat help2man make gcc build-essential g++ chrpath libxml2-utils
 libsdl1.2-dev texinfo python3
@@ -195,15 +197,19 @@ python-pysqlite2 diffstat help2man make gcc build-essential g++ chrpath
 libxml2-utils libsdl1.2-dev texinfo python3
 </pre></div>
 </div>
-<p>In addition to these tools, the <cite>repo</cite> tool must also be installed, this is covered in <a class="reference internal" href="using-the-repo-tool.html#using-the-repo-tool"><span class="std std-ref">Using the repo tool</span></a>.</p>
+<p>In addition to these tools, the <cite>repo</cite> tool must also be installed, this is covered in <a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/using-the-repo-tool.html#using-the-repo-tool"><span class="std std-ref">Using the repo tool</span></a>.</p>
 </div>
 </div>
 <div class="section" id="using-the-repo-tool">
 <span id="id1"></span><h2>Using the repo tool<a class="headerlink" href="#using-the-repo-tool" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal"><span class="pre">repo</span></code> tool is used to obtain the sources of a PELUX release. <code class="docutils literal"><span class="pre">repo</span></code> was originally developed by the Android <a class="footnote-reference" href="#android" id="id2">[1]</a> project, and it is used to clone specific versions of git repositories into specific locations.</p>
+<p>The <code class="docutils literal"><span class="pre">repo</span></code> tool is used to obtain the sources of a PELUX release. <code class="docutils literal"><span class="pre">repo</span></code> was originally
+developed by the Android <a class="footnote-reference" href="#android" id="id2">[1]</a> project, and it is used to clone specific versions of git
+repositories into specific locations.</p>
 <div class="section" id="obtaining-the-repo-tool">
 <h3>Obtaining the repo tool<a class="headerlink" href="#obtaining-the-repo-tool" title="Permalink to this headline">¶</a></h3>
-<p>If you already have a directory in your <code class="docutils literal"><span class="pre">$PATH</span></code> for placing user-specific runnables, you should use that location; otherwise perform the following steps to add <code class="docutils literal"><span class="pre">~/bin</span></code> (or any directory of your choice) to your <code class="docutils literal"><span class="pre">$PATH</span></code>:</p>
+<p>If you already have a directory in your <code class="docutils literal"><span class="pre">$PATH</span></code> for placing user-specific runnables, you should
+use that location; otherwise perform the following steps to add <code class="docutils literal"><span class="pre">~/bin</span></code> (or any directory of your
+choice) to your <code class="docutils literal"><span class="pre">$PATH</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir ~/bin
 <span class="nb">echo</span> <span class="s2">&quot;export PATH=~/bin/:</span><span class="nv">$PATH</span><span class="s2">&quot;</span> &gt;&gt; ~/.bashrc
 bash <span class="c1"># needed to reload the ~/.bashrc</span>
@@ -237,17 +243,24 @@ chmod a+x ~/bin/repo
 </ul>
 <p>Variables:</p>
 <ul class="simple">
-<li>Manifest, refers to what <cite>&lt;manifest-name&gt;.xml</cite> file you want to use, for example <cite>pelux-intel.xml</cite>. Each hardware platform targeted by the PELUX reference has its own manifest describing what other git repositories are needed for the build.</li>
-<li>Image, refers to what version of PELUX should be built. Currently there are two versions: <cite>core-image-pelux</cite> and <cite>core-image-pelux-qtauto</cite>. The latter being a version that includes <a class="reference external" href="https://www.qt.io/qt-automotive-suite/">Qt Automotive Suite</a> components that enable the NeptuneUI demo application.</li>
+<li>Manifest, refers to what <cite>&lt;manifest-name&gt;.xml</cite> file you want to use, for example
+<cite>pelux-intel.xml</cite>. Each hardware platform targeted by the PELUX reference has its own manifest
+describing what other git repositories are needed for the build.</li>
+<li>Image, refers to what version of PELUX should be built. Currently there are two versions:
+<cite>core-image-pelux</cite> and <cite>core-image-pelux-qtauto</cite>. The latter being a version that includes <a class="reference external" href="https://www.qt.io/qt-automotive-suite/">Qt
+Automotive Suite</a> components that enable the NeptuneUI demo application.</li>
 </ul>
-<p>Create a directory for the PELUX build. Instruct repo tool to fetch a manifest using the command <cite>repo init</cite>. In this context, branch denotes what branch of git repo <cite>pelux-manifests</cite> to use. Then make repo tool fetch all sources using the command <cite>repo sync</cite>.</p>
+<p>Create a directory for the PELUX build. Instruct repo tool to fetch a manifest using the command
+<cite>repo init</cite>. In this context, branch denotes what branch of git repo <cite>pelux-manifests</cite> to use. Then
+make repo tool fetch all sources using the command <cite>repo sync</cite>.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir pelux
 <span class="nb">cd</span> pelux
 repo init -u https://github.com/Pelagicore/pelux-manifests.git -m &lt;manifest&gt; -b &lt;branch&gt;
 repo sync
 </pre></div>
 </div>
-<p>When done fetching the sources, create a build directory and set up bitbake. <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> tells the <code class="docutils literal"><span class="pre">oe-init-build-env</span></code> script which path to fetch configuration samples from.</p>
+<p>When done fetching the sources, create a build directory and set up bitbake. <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> tells
+the <code class="docutils literal"><span class="pre">oe-init-build-env</span></code> script which path to fetch configuration samples from.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The example below get the template configuration for the Intel BSP, adapt the path according to your current BSP.</p>
@@ -255,33 +268,43 @@ repo sync
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">TEMPLATECONF</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/sources/meta-pelux-bsp-intel/conf/ <span class="nb">source</span> sources/poky/oe-init-build-env build
 </pre></div>
 </div>
-<p>The script will create configs if there are no configs present, a message about created <code class="docutils literal"><span class="pre">conf/local.conf</span></code> and <code class="docutils literal"><span class="pre">conf/bblayers.conf</span></code> files is normal.</p>
+<p>The script will create configs if there are no configs present, a message about created
+<code class="docutils literal"><span class="pre">conf/local.conf</span></code> and <code class="docutils literal"><span class="pre">conf/bblayers.conf</span></code> files is normal.</p>
 <p>Finally, build the desired image. See the variables description above for information on the different images.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>bitbake &lt;image&gt;
 </pre></div>
 </div>
-<p>When the build is complete the result will be available in <code class="docutils literal"><span class="pre">tmp/deploy/images/&lt;machine&gt;/</span></code>. It is possible to generate a number of different image formats, ranging from just the rootfs as a tarball to ready disk-images containing EFI-bootloader, configuration and rootfs and that can be written directly to a storage device. For PELUX, the preffered format for the Intel NUC are .wic images, which are complete disk-images.</p>
+<p>When the build is complete the result will be available in <code class="docutils literal"><span class="pre">tmp/deploy/images/&lt;machine&gt;/</span></code>. It is
+possible to generate a number of different image formats, ranging from just the rootfs as a tarball
+to ready disk-images containing EFI-bootloader, configuration and rootfs and that can be written
+directly to a storage device. For PELUX, the preferred format for the Intel NUC are .wic images,
+which are complete disk-images.</p>
 </div>
 <div class="section" id="writing-the-image">
 <h2>Writing the image<a class="headerlink" href="#writing-the-image" title="Permalink to this headline">¶</a></h2>
-<p>This section describes how to write the build output, a ready disk-image, to a removable media. Further information can be found in the <a class="reference external" href="http://git.yoctoproject.org/cgit.cgi/poky/tree/README.hardware">Poky documentation</a>.</p>
-<div class="section" id="nuc-minnowboard">
-<h3>NUC / Minnowboard<a class="headerlink" href="#nuc-minnowboard" title="Permalink to this headline">¶</a></h3>
+<p>This section describes how to write the build output, a ready disk-image, to a removable media.
+Further information can be found in the <a class="reference external" href="http://git.yoctoproject.org/cgit.cgi/poky/tree/README.hardware">Poky documentation</a>.</p>
+<div class="section" id="general-instructions">
+<h3>General instructions<a class="headerlink" href="#general-instructions" title="Permalink to this headline">¶</a></h3>
 <p>Use the <code class="docutils literal"><span class="pre">dd</span></code> utility to write the image to the raw block device. For example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>dd <span class="k">if</span><span class="o">=</span>core-image-pelux-intel-corei7-64.wic <span class="nv">of</span><span class="o">=</span>&lt;host-device&gt; <span class="nv">bs</span><span class="o">=</span>4M
-</pre></div>
-</div>
-</div>
-<div class="section" id="raspberry-pi-3">
-<h3>Raspberry Pi 3<a class="headerlink" href="#raspberry-pi-3" title="Permalink to this headline">¶</a></h3>
-<p>Write the generated image file to an SD-card using e.g.:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>dd <span class="k">if</span><span class="o">=</span>core-image-pelux-raspberrypi3.rpi-sdimg <span class="nv">of</span><span class="o">=</span>&lt;host-device&gt; <span class="nv">bs</span><span class="o">=</span>4M
+<div class="highlight-bash"><div class="highlight"><pre><span></span>dd <span class="k">if</span><span class="o">=</span>&lt;image-name&gt; <span class="nv">of</span><span class="o">=</span>&lt;host-device&gt; <span class="nv">bs</span><span class="o">=</span>4M
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal"><span class="pre">&lt;host-device&gt;</span></code> is the SD-card or other removable media device on the host, e.g. <code class="docutils literal"><span class="pre">/dev/mmcblk0</span></code> or <code class="docutils literal"><span class="pre">/dev/sdc</span></code>. More information on how to discover the SD-card or other media device can be found in the <a class="reference external" href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">following documentation</a>.</p>
+<p class="last">The &lt;image-name&gt; depends on your arch and image recipe name. You can find all images in <code class="docutils literal"><span class="pre">tmp/deploy/images/&lt;arch&gt;/</span></code> in your build directory.</p>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">&lt;host-device&gt;</span></code> is the SD-card or other removable media device on the host, e.g.  <code class="docutils literal"><span class="pre">/dev/mmcblk0</span></code> or <code class="docutils literal"><span class="pre">/dev/sdc</span></code>. More information on how to discover the SD-card or other media device can be found in the <a class="reference external" href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">following documentation</a>.</p>
+</div>
+</div>
+<div class="section" id="image-names-for-pelux-targets">
+<h3>Image names for PELUX targets<a class="headerlink" href="#image-names-for-pelux-targets" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>NUC/Minnowboard: <code class="docutils literal"><span class="pre">core-image-pelux-intel-corei7-64.wic</span></code></li>
+<li>Raspberry Pi 3: <code class="docutils literal"><span class="pre">core-image-pelux-raspberrypi3.rpi-sdimg</span></code></li>
+</ul>
 </div>
 </div>
 <div class="section" id="booting-on-target-hardware">
@@ -290,8 +313,8 @@ repo sync
 <h3>NUC<a class="headerlink" href="#nuc" title="Permalink to this headline">¶</a></h3>
 <p>Plug in the USB-stick and boot the target, make sure to configure EFI to boot from USB. No other actions should be needed.</p>
 </div>
-<div class="section" id="id3">
-<h3>Raspberry Pi 3<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="raspberry-pi-3">
+<h3>Raspberry Pi 3<a class="headerlink" href="#raspberry-pi-3" title="Permalink to this headline">¶</a></h3>
 <p>Insert the SD-card into the Raspberry Pi and boot it up.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -308,73 +331,95 @@ target image. All you have to do, is pass an additional option to bitbake:</p>
 </div>
 <p>This command will create a toolchain installer that contains the sysroot that
 matches your target root filesystem. The installer will be created in
-tmp/deploy/sdk directory. Please refer to <a class="reference internal" href="../sdk/installing-the-sdk.html#installing-sdk"><span class="std std-ref">Installing the SDK</span></a> for setup and
+tmp/deploy/sdk directory. Please refer to <a class="reference internal" href="../../swf-blueprint/docs/articles/sdk/installing-the-sdk.html#installing-sdk"><span class="std std-ref">Installing the SDK</span></a> for setup and
 usage of the generated SDK installer.</p>
 </div>
+<div class="section" id="manifests">
+<h2>Manifests<a class="headerlink" href="#manifests" title="Permalink to this headline">¶</a></h2>
+<p>Bla bla XML upstream, revision, where to put files and so on.</p>
+<p>Structure, include other manifests etc.</p>
 <div class="section" id="creating-a-manifest">
-<h2>Creating a manifest<a class="headerlink" href="#creating-a-manifest" title="Permalink to this headline">¶</a></h2>
-<p>Manifest repositories are used to store repo tool <a class="footnote-reference" href="#repotool" id="id4">[2]</a> manifests. These manifests are used, in repo tool, to fetch all the sources, tools and scripts needed to build a PELUX-based system.</p>
-<p>The PELUX project contains a good reference <a class="footnote-reference" href="#pelux-manifests" id="id5">[3]</a> for how a manifest repository
-should look like. When creating a new manifest repository, it is a good idea to duplicate the PELUX manifests, and see which parts can be kept in your own manifests.</p>
-<p>It is not necessary to <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></code> the PELUX manifests, since the git history is likely not important for your project. Instead of <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></code>:ing the manifests, you may opt to simply copy them. To do this, browse to the PELUX manifests GitHub page <a class="footnote-reference" href="#pelux-manifests" id="id6">[3]</a>, and press the “Clone or download” button, then press “Download ZIP”.</p>
+<h3>Creating a manifest<a class="headerlink" href="#creating-a-manifest" title="Permalink to this headline">¶</a></h3>
+<p>Manifest repositories are used to store repo tool <a class="footnote-reference" href="#repotool" id="id3">[2]</a> manifests. These manifests are used,
+in the repo tool, to fetch all the sources, tools and scripts needed to build a PELUX-based system.</p>
+<p>The PELUX project contains a reference <a class="footnote-reference" href="#pelux-manifests" id="id4">[3]</a> for how a well-structured manifest
+repository should look like. When creating a new manifest repository, it is a good idea to duplicate
+the PELUX manifests, and see which parts can be kept in your own manifests.</p>
+<p>It is not necessary to <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></code> the PELUX manifests, since the git history is likely not
+important for your project. Instead of <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></code>:ing the manifests, you may opt to simply copy
+them. To do this, browse to the PELUX manifests GitHub page <a class="footnote-reference" href="#pelux-manifests" id="id5">[3]</a>, and press the
+“Clone or download” button, then press “Download ZIP”.</p>
 <p>In the examples below, it is assumed that the downloaded zip is named “pelux-manifests.zip”.</p>
-<div class="section" id="creating-a-git-repo-for-the-new-manifests">
-<h3>Creating a git repo for the new manifests<a class="headerlink" href="#creating-a-git-repo-for-the-new-manifests" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">repo</span></code> tool assumes all manifests to be stored in a git repo, to keep track of changes, thus a new git repository must be created for the manifests.</p>
+<div class="section" id="creating-a-git-repo-for-a-pelux-based-manifest">
+<h4>Creating a git repo for a PELUX-based manifest<a class="headerlink" href="#creating-a-git-repo-for-a-pelux-based-manifest" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal"><span class="pre">repo</span></code> tool assumes all manifests are stored in a git repo, to keep track of changes, thus a
+new git repository must be created for the manifests.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir my-manifests
 $ <span class="nb">cd</span> my-manifests
 $ git init
 $ unzip &lt;path-to-zip&gt;/pelux-manifests.zip
 </pre></div>
 </div>
-<p>Do not stage and commit the newly unpacked files just yet. Some tweaks must be done to the files before they can be re-used by your project.</p>
+<p>Do not stage and commit the newly unpacked files just yet. Some tweaks must be done to the files
+before they can be re-used by your project.</p>
 </div>
 <div class="section" id="tweaking-the-manifest-files">
-<h3>Tweaking the manifest files<a class="headerlink" href="#tweaking-the-manifest-files" title="Permalink to this headline">¶</a></h3>
+<h4>Tweaking the manifest files<a class="headerlink" href="#tweaking-the-manifest-files" title="Permalink to this headline">¶</a></h4>
 <p>Below follows general recommendations for modifications of common files.</p>
 <ul class="simple">
 <li>The <code class="docutils literal"><span class="pre">ci-scripts</span></code> directory can likely be kept as-is, if these scripts seem useful for your project</li>
 <li>The <code class="docutils literal"><span class="pre">doc</span></code> directory should contain extra documentation for the repository, if applicable</li>
-<li>The vagrant-cookbook directory should contain a <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span></code> pointing to <code class="docutils literal"><span class="pre">git&#64;github.com:Pelagicore/vagrant-cookbook.git</span></code>, or a different repository containing vagrant scripts. This submodule is used by the <code class="docutils literal"><span class="pre">Vagrantfile</span></code>, and is only needed if Vagrant <a class="footnote-reference" href="#vagrant" id="id7">[4]</a> is used for the project.</li>
+<li>The vagrant-cookbook directory should contain a <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span></code> pointing to
+<code class="docutils literal"><span class="pre">git&#64;github.com:Pelagicore/vagrant-cookbook.git</span></code>, or a different repository containing vagrant
+scripts. This submodule is used by the <code class="docutils literal"><span class="pre">Vagrantfile</span></code>, and is only needed if Vagrant <a class="footnote-reference" href="#vagrant" id="id6">[4]</a>
+is used for the project.</li>
 <li>CONTRIBUTING, LICENSE, and README should be updated according to the <code class="docutils literal"><span class="pre">pelux-manifests</span></code> license and your project guidelines</li>
 <li>The <code class="docutils literal"><span class="pre">Dockerfile</span></code> can likely be left as-is, and can be customized according to your project needs for Docker builds</li>
-<li>The <code class="docutils literal"><span class="pre">Jenkinsfile</span></code> sets up a Jenkins <a class="footnote-reference" href="#jenkins" id="id8">[5]</a> pipeline <a class="footnote-reference" href="#jenkinspipeline" id="id9">[6]</a> for Continuous Integration (CI) builds of your manifest. This file must be modified to accomodate your project. In particular:
+<li>The <code class="docutils literal"><span class="pre">Jenkinsfile</span></code> sets up a Jenkins <a class="footnote-reference" href="#jenkins" id="id7">[5]</a> pipeline <a class="footnote-reference" href="#jenkinspipeline" id="id8">[6]</a> for Continuous
+Integration (CI) builds of your manifest. This file must be modified to accomodate your project.
+In particular:
 * Directory names must be updated (for example, the TEMPLATECONF variable bust be set to match your layer structure)
 * Image names must be updated to reflect your own image names (<code class="docutils literal"><span class="pre">core-image-pelux</span></code> may become <code class="docutils literal"><span class="pre">core-image-yourproject</span></code>)
 * In general, this file can be customized to suite your project’s CI needs</li>
 <li>The <code class="docutils literal"><span class="pre">Vagrantfile</span></code> should be usable as-is, but can be modified to accommodate your project’s CI and virtualized build needs</li>
-<li>The <code class="docutils literal"><span class="pre">xml</span></code> files in the repository are the actual manifest files. The manifest files in the repository must be modified to indicate the correct repositories. It is common to structure the manifets files in a hierachical fashion, such that a common base manifest is created, and (possibly several) specialized manifests include this base manifest. An example of this can be seen in the PELUX manifests repository, where the <code class="docutils literal"><span class="pre">pelux-base.xml</span></code> manifest is included in, for instance, the <code class="docutils literal"><span class="pre">pelux-intel.xml</span></code> and <code class="docutils literal"><span class="pre">pelux-rpi.xml</span></code> manifests.</li>
+<li>The <code class="docutils literal"><span class="pre">xml</span></code> files in the repository are the actual manifest files. The manifest files in the
+repository must be modified to indicate the correct repositories. It is common to structure the
+manifets files in a hierachical fashion, such that a common base manifest is created, and
+(possibly several) specialized manifests include this base manifest. An example of this can be
+seen in the PELUX manifests repository, where the <code class="docutils literal"><span class="pre">pelux-base.xml</span></code> manifest is included in, for
+instance, the <code class="docutils literal"><span class="pre">pelux-intel.xml</span></code> and <code class="docutils literal"><span class="pre">pelux-rpi.xml</span></code> manifests.</li>
 </ul>
 <table class="docutils footnote" frame="void" id="repotool" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="https://source.android.com/source/using-repo">https://source.android.com/source/using-repo</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td><a class="reference external" href="https://source.android.com/source/using-repo">https://source.android.com/source/using-repo</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="pelux-manifests" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id5">1</a>, <a class="fn-backref" href="#id6">2</a>)</em> <a class="reference external" href="https://github.com/Pelagicore/pelux-manifests">https://github.com/Pelagicore/pelux-manifests</a></td></tr>
+<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id4">1</a>, <a class="fn-backref" href="#id5">2</a>)</em> <a class="reference external" href="https://github.com/Pelagicore/pelux-manifests">https://github.com/Pelagicore/pelux-manifests</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="vagrant" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[4]</a></td><td><a class="reference external" href="https://source.android.com/source/using-repo">https://source.android.com/source/using-repo</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td><a class="reference external" href="https://source.android.com/source/using-repo">https://source.android.com/source/using-repo</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="jenkins" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id8">[5]</a></td><td><a class="reference external" href="https://www.vagrantup.com/">https://www.vagrantup.com/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id7">[5]</a></td><td><a class="reference external" href="https://www.vagrantup.com/">https://www.vagrantup.com/</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="jenkinspipeline" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id9">[6]</a></td><td><a class="reference external" href="https://jenkins.io/doc/book/pipeline/">https://jenkins.io/doc/book/pipeline/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id8">[6]</a></td><td><a class="reference external" href="https://jenkins.io/doc/book/pipeline/">https://jenkins.io/doc/book/pipeline/</a></td></tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 <div class="section" id="creating-a-new-layer">
@@ -382,11 +427,17 @@ $ unzip &lt;path-to-zip&gt;/pelux-manifests.zip
 <p>A new layer should be added in a few different scenarios:</p>
 <ul class="simple">
 <li>A new Yocto project is created (such as when a new customer project needs a new layer)</li>
-<li>An easily separable, distinct new feature, easily reusable by other projects is added<ul>
-<li>An example of this could be a layer for a maps and navigation software, or a new graphical framework (such as Qt, or GTK, etc.)</li>
+<li><dl class="first docutils">
+<dt>An easily separable, distinct new feature, easily reusable by other projects is added</dt>
+<dd><ul class="first last">
+<li>An example of this could be a layer for a maps and navigation software, or a new graphical
+framework (such as Qt, or GTK, etc.)</li>
 </ul>
+</dd>
+</dl>
 </li>
-<li>An existing project needs to be tweaked somehow, such as changing color schemes of an existing HMI for use in an exhibition</li>
+<li>An existing project needs to be tweaked somehow, such as changing color schemes of an existing HMI
+for use in an exhibition</li>
 </ul>
 <div class="section" id="using-poky-scripts-for-generating-the-layer">
 <h3>Using Poky scripts for generating the layer<a class="headerlink" href="#using-poky-scripts-for-generating-the-layer" title="Permalink to this headline">¶</a></h3>
@@ -403,25 +454,42 @@ way:</p>
 <ul class="simple">
 <li>create - Create a new layer (as opposed to listing existing layers)</li>
 <li>meta-mylayer - Name of the layer to create. It is common practice to prefix layers with <code class="docutils literal"><span class="pre">meta-</span></code>.</li>
-<li>9 - This is the layer priority. Ensure this priority is <em>higher</em> than the priority of the layer you are building upon. For more information on layer priorities, please see the <code class="docutils literal"><span class="pre">BBFILE_PRIOTIRY</span></code> variable of the BitBake user manual <a class="footnote-reference" href="#bbmanual" id="id10">[7]</a>.</li>
-<li><code class="docutils literal"><span class="pre">-o</span> <span class="pre">/path/to/sources/meta-mylayer</span></code> - Output path of the layer. This directory will be created, and will contain the layer files.</li>
+<li>9 - This is the layer priority. Ensure this priority is <em>higher</em> than the priority of the layer
+you are building upon. For more information on layer priorities, please see the
+<code class="docutils literal"><span class="pre">BBFILE_PRIOTIRY</span></code> variable of the BitBake user manual <a class="footnote-reference" href="#bbmanual" id="id9">[7]</a>.</li>
+<li><code class="docutils literal"><span class="pre">-o</span> <span class="pre">/path/to/sources/meta-mylayer</span></code> - Output path of the layer. This directory will be created,
+and will contain the layer files.</li>
 </ul>
 <div class="section" id="modifying-the-output-of-yocto-layer">
 <h4>Modifying the output of <code class="docutils literal"><span class="pre">yocto-layer</span></code><a class="headerlink" href="#modifying-the-output-of-yocto-layer" title="Permalink to this headline">¶</a></h4>
-<p><code class="docutils literal"><span class="pre">yocto-layer</span></code> generates a <code class="docutils literal"><span class="pre">README</span></code> template file, which should be filled in before the layer is used. This README will make it easier for users of your layer to know how to integrate it in their builds. In addition to this, a <code class="docutils literal"><span class="pre">COPYING.MIT</span></code> license file is added. The license of the layer should be updated if needed.</p>
-<p>It is recommended to have a look in <code class="docutils literal"><span class="pre">conf/layer.conf</span></code> (also generated by the <code class="docutils literal"><span class="pre">yocto-layer</span></code> script), to verify that it looks correct. A cursory look into this file will reveal that recipes are expected to be placed in <code class="docutils literal"><span class="pre">recipes-&lt;CATEGORY&gt;</span></code> in the root of your new layer. A list of common recipe categories can be found in <code class="docutils literal"><span class="pre">poky/meta/recipes.txt</span></code>, where <code class="docutils literal"><span class="pre">poky</span></code> is the base directory of the <code class="docutils literal"><span class="pre">poky</span></code> git repository. If you can not find a suitable category in <code class="docutils literal"><span class="pre">recipes.txt</span></code>, you are free to invent your own category.</p>
+<p><code class="docutils literal"><span class="pre">yocto-layer</span></code> generates a <code class="docutils literal"><span class="pre">README</span></code> template file, which should be filled in before the layer is
+used. This README will make it easier for users of your layer to know how to integrate it in their
+builds. In addition to this, a <code class="docutils literal"><span class="pre">COPYING.MIT</span></code> license file is added. The license of the layer
+should be updated if needed.</p>
+<p>It is recommended to have a look in <code class="docutils literal"><span class="pre">conf/layer.conf</span></code> (also generated by the <code class="docutils literal"><span class="pre">yocto-layer</span></code>
+script), to verify that it looks correct. A cursory look into this file will reveal that recipes are
+expected to be placed in <code class="docutils literal"><span class="pre">recipes-&lt;CATEGORY&gt;</span></code> in the root of your new layer. A list of common
+recipe categories can be found in <code class="docutils literal"><span class="pre">poky/meta/recipes.txt</span></code>, where <code class="docutils literal"><span class="pre">poky</span></code> is the base directory of
+the <code class="docutils literal"><span class="pre">poky</span></code> git repository. If you can not find a suitable category in <code class="docutils literal"><span class="pre">recipes.txt</span></code>, you are
+free to invent your own category.</p>
 </div>
 </div>
 <div class="section" id="using-the-new-layer-in-a-build">
 <h3>Using the new layer in a build<a class="headerlink" href="#using-the-new-layer-in-a-build" title="Permalink to this headline">¶</a></h3>
-<p>In order to include the new layer in a Yocto build, it must be specified in the <code class="docutils literal"><span class="pre">bblayers.conf</span></code> file used by your project. If you already have a <code class="docutils literal"><span class="pre">bblayers.conf</span></code> file, you may add your new layer to this file.</p>
-<p>If you do not already have a <code class="docutils literal"><span class="pre">bblayers.conf</span></code> file, and if this new layer is meant to supply one, you may use the <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> <a class="footnote-reference" href="#templateconf" id="id11">[8]</a> feature of the <code class="docutils literal"><span class="pre">oe-init-build-env</span></code> script.</p>
+<p>In order to include the new layer in a Yocto build, it must be specified in the <code class="docutils literal"><span class="pre">bblayers.conf</span></code>
+file used by your project. If you already have a <code class="docutils literal"><span class="pre">bblayers.conf</span></code> file, you may add your new layer
+to this file.</p>
+<p>If you do not already have a <code class="docutils literal"><span class="pre">bblayers.conf</span></code> file, and if this new layer is meant to supply one,
+you may use the <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> <a class="footnote-reference" href="#templateconf" id="id10">[8]</a> feature of the <code class="docutils literal"><span class="pre">oe-init-build-env</span></code> script.</p>
 <div class="section" id="using-templateconf">
 <h4>Using <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code><a class="headerlink" href="#using-templateconf" title="Permalink to this headline">¶</a></h4>
-<p><code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> specifies a directory containing samples for <code class="docutils literal"><span class="pre">local.conf</span></code> and <code class="docutils literal"><span class="pre">bblayers.conf</span></code>. By supplying these two files with your layer, you will make it easier for developers to get going with your layer.</p>
-<p>The <code class="docutils literal"><span class="pre">conf</span></code> directory on the root level of your layer is typically used for storing the <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> files. Below are examples of <code class="docutils literal"><span class="pre">local.conf.sample</span></code> and <code class="docutils literal"><span class="pre">bblayers.conf.sample</span></code>:</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">local.conf.sample</span><a class="headerlink" href="#id13" title="Permalink to this code">¶</a></div>
+<p><code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> specifies a directory containing samples for <code class="docutils literal"><span class="pre">local.conf</span></code> and <code class="docutils literal"><span class="pre">bblayers.conf</span></code>.
+By supplying these two files with your layer, you will make it easier for developers to get going
+with your layer.</p>
+<p>The <code class="docutils literal"><span class="pre">conf</span></code> directory on the root level of your layer is typically used for storing the
+<code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> files. Below are examples of <code class="docutils literal"><span class="pre">local.conf.sample</span></code> and <code class="docutils literal"><span class="pre">bblayers.conf.sample</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">local.conf.sample</span><a class="headerlink" href="#id12" title="Permalink to this code">¶</a></div>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -446,15 +514,21 @@ PACKAGE_CLASSES ?<span class="o">=</span> <span class="s2">&quot;package_rpm&quo
 </pre></div>
 </td></tr></table></div>
 </div>
-<p><code class="docutils literal"><span class="pre">CONF_VERSION</span></code> should be increased each time <code class="docutils literal"><span class="pre">build/conf</span></code> changes incompatibly. Keep this until you update <code class="docutils literal"><span class="pre">build/conf</span></code> incompatibly.</p>
+<p><code class="docutils literal"><span class="pre">CONF_VERSION</span></code> should be increased each time <code class="docutils literal"><span class="pre">build/conf</span></code> changes incompatibly. Keep this until
+you update <code class="docutils literal"><span class="pre">build/conf</span></code> incompatibly.</p>
 <p><code class="docutils literal"><span class="pre">DL_DIR</span></code> specifies where to store downloaded files. Keep this as is.</p>
-<p><code class="docutils literal"><span class="pre">MACHINE</span></code> specified your target hardware. This is used to find the correct <code class="docutils literal"><span class="pre">machine</span></code> configuration file in your layers. <code class="docutils literal"><span class="pre">qemux86</span></code> is a virtulized x86 machine. You will most likely need to change this.</p>
-<p><code class="docutils literal"><span class="pre">SDKMACHINE</span></code> specifies the target architecture to produce <em>SDK</em> packages for. This is typically the architecture of your workstation.</p>
-<p><code class="docutils literal"><span class="pre">DISTRO</span></code> specifies the <code class="docutils literal"><span class="pre">distro</span></code> config you will be using. A common option here is <code class="docutils literal"><span class="pre">poky</span></code> to use the <code class="docutils literal"><span class="pre">poky</span></code> distribution.</p>
-<p><code class="docutils literal"><span class="pre">BB_NUMBER_THREADS</span></code> and <code class="docutils literal"><span class="pre">PARALLEL_MAKE</span></code> are used to speed up building by using multiple CPU cores. You may keep these as is.</p>
+<p><code class="docutils literal"><span class="pre">MACHINE</span></code> specified your target hardware. This is used to find the correct <code class="docutils literal"><span class="pre">machine</span></code>
+configuration file in your layers. <code class="docutils literal"><span class="pre">qemux86</span></code> is a virtulized x86 machine. You will most likely
+need to change this.</p>
+<p><code class="docutils literal"><span class="pre">SDKMACHINE</span></code> specifies the target architecture to produce <em>SDK</em> packages for. This is typically
+the architecture of your workstation.</p>
+<p><code class="docutils literal"><span class="pre">DISTRO</span></code> specifies the <code class="docutils literal"><span class="pre">distro</span></code> config you will be using. A common option here is <code class="docutils literal"><span class="pre">poky</span></code> to
+use the <code class="docutils literal"><span class="pre">poky</span></code> distribution.</p>
+<p><code class="docutils literal"><span class="pre">BB_NUMBER_THREADS</span></code> and <code class="docutils literal"><span class="pre">PARALLEL_MAKE</span></code> are used to speed up building by using multiple CPU
+cores. You may keep these as is.</p>
 <p><code class="docutils literal"><span class="pre">PACKAGE_CLASSES</span></code> specifies the output package format. The example will produce <code class="docutils literal"><span class="pre">rpm</span></code> packages.</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">bblayers.conf.sample</span><a class="headerlink" href="#id14" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">bblayers.conf.sample</span><a class="headerlink" href="#id13" title="Permalink to this code">¶</a></div>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -481,25 +555,31 @@ BBLAYERS ?<span class="o">=</span> <span class="s2">&quot;                      
 </pre></div>
 </td></tr></table></div>
 </div>
-<p><code class="docutils literal"><span class="pre">LCONF_VERSION</span></code> one line 1 is used to indicate compatibility issues between <code class="docutils literal"><span class="pre">local.conf</span></code> and <code class="docutils literal"><span class="pre">bblayers.conf</span></code>. You can usually leave this at “6”, but if <code class="docutils literal"><span class="pre">bblayers.conf</span></code> changes incompatibly, then update this variable.</p>
-<p><code class="docutils literal"><span class="pre">BBPATH</span></code> on line 3 is used by BitBake to locate the top level of your Yocto build. Keep this as is.</p>
-<p><code class="docutils literal"><span class="pre">YOCTOROOT</span></code> resolves to the parent directory of your <code class="docutils literal"><span class="pre">source</span></code> and <code class="docutils literal"><span class="pre">build</span></code> directories, and is a useful way to avoid absolute paths in <code class="docutils literal"><span class="pre">bblayers.conf</span></code>. Keep this as is.</p>
-<p><code class="docutils literal"><span class="pre">BBFILES</span></code> should be kept as is, since no extra recipes are supplied in the <code class="docutils literal"><span class="pre">bblayers.conf</span></code> (this is done by each individual layer instead).</p>
-<p><code class="docutils literal"><span class="pre">BBLAYERS</span></code> is the most important variable in your <code class="docutils literal"><span class="pre">bblayers.conf</span></code>, this variable specifies the layers to use for your Yocto build. This variable needs to contain all layers you intend to include.</p>
+<p><code class="docutils literal"><span class="pre">LCONF_VERSION</span></code> one line 1 is used to indicate compatibility issues between <code class="docutils literal"><span class="pre">local.conf</span></code> and
+<code class="docutils literal"><span class="pre">bblayers.conf</span></code>. You can usually leave this at “6”, but if <code class="docutils literal"><span class="pre">bblayers.conf</span></code> changes incompatibly,
+then update this variable.</p>
+<p><code class="docutils literal"><span class="pre">BBPATH</span></code> on line 3 is used by BitBake to locate the top level of your Yocto build. Keep this as
+is.</p>
+<p><code class="docutils literal"><span class="pre">YOCTOROOT</span></code> resolves to the parent directory of your <code class="docutils literal"><span class="pre">source</span></code> and <code class="docutils literal"><span class="pre">build</span></code> directories, and is
+a useful way to avoid absolute paths in <code class="docutils literal"><span class="pre">bblayers.conf</span></code>. Keep this as is.</p>
+<p><code class="docutils literal"><span class="pre">BBFILES</span></code> should be kept as is, since no extra recipes are supplied in the <code class="docutils literal"><span class="pre">bblayers.conf</span></code> (this
+is done by each individual layer instead).</p>
+<p><code class="docutils literal"><span class="pre">BBLAYERS</span></code> is the most important variable in your <code class="docutils literal"><span class="pre">bblayers.conf</span></code>, this variable specifies the
+layers to use for your Yocto build. This variable needs to contain all layers you intend to include.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">As always, for additional options and full documentation of BitBake concepts. See the BitBake user manual <a class="footnote-reference" href="#bbmanual" id="id12">[7]</a>.</p>
+<p class="last">As always, for additional options and full documentation of BitBake concepts. See the BitBake user manual <a class="footnote-reference" href="#bbmanual" id="id11">[7]</a>.</p>
 </div>
 <table class="docutils footnote" frame="void" id="bbmanual" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[7]</td><td><em>(<a class="fn-backref" href="#id10">1</a>, <a class="fn-backref" href="#id12">2</a>)</em> <a class="reference external" href="http://www.yoctoproject.org/docs/latest/bitbake-user-manual/bitbake-user-manual.html">http://www.yoctoproject.org/docs/latest/bitbake-user-manual/bitbake-user-manual.html</a></td></tr>
+<tr><td class="label">[7]</td><td><em>(<a class="fn-backref" href="#id9">1</a>, <a class="fn-backref" href="#id11">2</a>)</em> <a class="reference external" href="http://www.yoctoproject.org/docs/latest/bitbake-user-manual/bitbake-user-manual.html">http://www.yoctoproject.org/docs/latest/bitbake-user-manual/bitbake-user-manual.html</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="templateconf" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id11">[8]</a></td><td><a class="reference external" href="http://www.yoctoproject.org/docs/latest/dev-manual/dev-manual.html#creating-a-custom-template-configuration-directory">http://www.yoctoproject.org/docs/latest/dev-manual/dev-manual.html#creating-a-custom-template-configuration-directory</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id10">[8]</a></td><td><a class="reference external" href="http://www.yoctoproject.org/docs/latest/dev-manual/dev-manual.html#creating-a-custom-template-configuration-directory">http://www.yoctoproject.org/docs/latest/dev-manual/dev-manual.html#creating-a-custom-template-configuration-directory</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -517,7 +597,7 @@ BBLAYERS ?<span class="o">=</span> <span class="s2">&quot;                      
         <a href="../ci-and-cd/index.html" class="btn btn-neutral float-right" title="Continuous integration and deployment" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../workflow/github-tips-and-tricks.html" class="btn btn-neutral" title="GitHub Tips and Tricks" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../workflow/index.html" class="btn btn-neutral" title="Git workflow" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -548,7 +628,7 @@ BBLAYERS ?<span class="o">=</span> <span class="s2">&quot;                      
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1.0-34fb75d 2017-08-16',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

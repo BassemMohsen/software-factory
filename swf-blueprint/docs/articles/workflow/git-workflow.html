@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Git workflow &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> software-factory
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/workflow/index.html">Git workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/baseplatform/index.html">Base Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/sdk/index.html">Software Development Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing/index.html">Licensing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">software-factory</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Git workflow</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/swf-blueprint/docs/articles/workflow/git-workflow.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="git-workflow">
+<h1>Git workflow<a class="headerlink" href="#git-workflow" title="Permalink to this headline">¶</a></h1>
+<p>The suggested workflow when working in a somewhat large project with git, given that one does not
+use gerrit or a similar tool, is a rather general pull request based flow. The following flow is
+general enough so that it works in both GitHub, GitLab and Bitbucket, at least.</p>
+<p>Assume in the examples below that the URL to the repo is
+<code class="docutils literal"><span class="pre">git&#64;github.com:Pelagicore/software-factory.git</span></code>.</p>
+<div class="section" id="general-setup">
+<h2>General setup<a class="headerlink" href="#general-setup" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Fork the repo. In most git frontends, that fork will end up at
+<code class="docutils literal"><span class="pre">git&#64;github.com:&lt;username&gt;/software-factory.git</span></code></p>
+</li>
+<li><p class="first">Clone the original fork and add a remote for the upstream to the repo</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone git@github.com:&lt;username&gt;/software-factory.git
+$ git remote add upstream git@github.com:Pelagicore/software-factory.git
+</pre></div>
+</div>
+</li>
+</ol>
+<p>This will make the fork have <code class="docutils literal"><span class="pre">origin</span></code> as remote name, which we thing feels most natural for most
+developers, as it is the repository the developer will typically push to.  On the other hand, we
+recommend to always type the remote and branch name when pushing, which forces the developer to be
+more explicit about their intentions.</p>
+</div>
+<div class="section" id="for-each-set-of-changes">
+<h2>For each set of changes<a class="headerlink" href="#for-each-set-of-changes" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Check out the master branch and make sure it is up to date</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout master
+$ git pull upstream master
+$ git push origin master
+</pre></div>
+</div>
+</li>
+<li><p class="first">Check out a new branch to work on</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout -b some_branch_name
+</pre></div>
+</div>
+<p>This is optional, it is possible to work on master as well, but it has the downside of making
+master blocked while waiting for merge.</p>
+</li>
+<li><p class="first">Do some work, and commit it.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ touch new_file
+$ git add new_file
+$ git commit -s -m &quot;add new_file&quot;
+</pre></div>
+</div>
+</li>
+<li><p class="first">Make sure your branch is up-to-date with master</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git pull upstream master --rebase
+</pre></div>
+</div>
+<blockquote>
+<div><p>This is to make sure that any conflicts that exist before pushing are resolved locally before
+pushing. It might be the case that there are more people working on the same code that has a
+pull request which just got accepted, which would lead to a conflict in master. Then it is
+better to resolve the conflict in the local branch before creating a new pull request. To keep
+the git log clear of empty merge commits, we recommend rebasing.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Push to the forked remote</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git push origin some_branch_name
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create a pull request in whatever web frontend for git is being used</p>
+</li>
+</ol>
+<p>Make sure the rest of the team is notified of the pull request. There are different ways of handling
+changes to the pull request. Either any new changes can be added to an existing commit and
+force-pushed to the forked repo, or they can be added on top of the existing commit. The pull
+request will be updated either way.</p>
+<p>Whenever the team is satisfied with the changes, pull the changes in by accepting the pull request.</p>
+</div>
+<div class="section" id="good-commits">
+<h2>Good commits<a class="headerlink" href="#good-commits" title="Permalink to this headline">¶</a></h2>
+<p>A good commit (or patch):</p>
+<ol class="arabic simple">
+<li>is atomic: Each commit should contain only one logical change. Use of vague verbs (e.g “update”)
+and phrases like “this patch also” are usually a good indicator that commit is not atomic.</li>
+<li>has a good commit message associated with it.</li>
+</ol>
+<p>Good commit messages are important because of two reasons:</p>
+<ol class="arabic simple">
+<li>Proper history: Each line in the source code can then be traced to the commit that changed it and
+why. Humans tend to have bad memory so even the committer may not remember why they made some
+particular changes after a few months or years of the commit.</li>
+<li>Ease of reviewing: The reviewer need to know why you are suggesting the changes in question when
+you submit a pull-request and they can not always infer the rationale from the changes themselves.</li>
+</ol>
+<p>Keeping in mind that the topic of what qualifies as a good commit message, is highly subjective, the
+authors of this document follow and highly recommend <a class="reference external" href="https://wiki.gnome.org/Git/CommitMessages/">GNOME’s commit message guidelines</a>.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Pelagicore AB.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

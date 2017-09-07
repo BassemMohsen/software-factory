@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Software Development Kit &mdash; software-factory 0.1.0-34fb75d 2017-08-16 documentation</title>
+  <title>Software Development Kit &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="software-factory 0.1.0-34fb75d 2017-08-16 documentation" href="../../index.html"/>
-        <link rel="next" title="Licensing" href="../licensing/index.html"/>
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../index.html"/>
+        <link rel="next" title="Licensing" href="../../swf-blueprint/docs/articles/licensing/index.html"/>
         <link rel="prev" title="Continuous integration and deployment" href="../ci-and-cd/index.html"/> 
 
   
@@ -87,8 +87,7 @@
                 <p class="caption"><span class="caption-text">Table of contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/git-workflow.html">Git workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/github-tips-and-tricks.html">GitHub Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow/index.html">Git workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../baseplatform/index.html">Base Platform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ci-and-cd/index.html">Continuous integration and deployment</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Software Development Kit</a><ul>
@@ -114,7 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#deploying-and-running-a-binary-executable-on-target">Deploying and running a binary executable on target</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../licensing/index.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
 </ul>
 
             
@@ -161,22 +160,33 @@
             
   <div class="section" id="software-development-kit">
 <h1>Software Development Kit<a class="headerlink" href="#software-development-kit" title="Permalink to this headline">¶</a></h1>
-<p>PELUX provides a Software Development Kit (SDK), for quick and easy development of software components for a PELUX (or PELUX-based) system. The SDK is mainly targeted towards service implementers but can be used for developing applications and other kinds of software components as well. The SDK installer script can be downloaded from <a class="reference external" href="http://pelux.io/downloads">PELUX website</a>. Each SDK installer is for a specific target hardware platform.</p>
+<p>PELUX provides a Software Development Kit (SDK), for quick and easy development of software
+components for a PELUX (or PELUX-based) system. The SDK is mainly targeted towards service
+implementers but can be used for developing applications and other kinds of software components as
+well. The SDK installer script can be downloaded from <a class="reference external" href="http://pelux.io/downloads">PELUX website</a>. Each SDK installer is for a
+specific target hardware platform.</p>
 <div class="section" id="downloading-and-installing-the-sdk">
 <h2>Downloading and installing the SDK<a class="headerlink" href="#downloading-and-installing-the-sdk" title="Permalink to this headline">¶</a></h2>
-<p>Download the SDK for your hardware from the <a class="reference external" href="http://pelux.io/downloads">PELUX website</a>. The SDK is a very huge file as it contains tho whole sysroot for the project in addition to some native tools. Depending on the internet connectivity speed it could take a while.</p>
+<p>Download the SDK for your hardware from the <a class="reference external" href="http://pelux.io/downloads">PELUX website</a>. The SDK is a very huge file as it
+contains the whole sysroot for the project in addition to some native tools. Depending on the
+internet connectivity speed it could take a while.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Note that the version number at the end of the SDK download file is not the version of the SDK but in fact the version number of poky, which is the upstream Yocto distribution PELUX is using.</p>
 </div>
 <div class="section" id="installing-the-sdk">
 <span id="installing-sdk"></span><h3>Installing the SDK<a class="headerlink" href="#installing-the-sdk" title="Permalink to this headline">¶</a></h3>
-<p>When the SDK has been downloaded from a HTTP server then per default is not executable. This needs to be changed with <cite>chmod</cite>.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/Downloads
-chmod +x poky-glibc-x86_64-core-image-pelux-qt-corei7-64-toolchain-2.2.1.sh
+<p>The SDK file is not executable by default. This needs to be changed with <cite>chmod</cite>. If you downloaded
+the SDK from the internet, the <code class="docutils literal"><span class="pre">&lt;SDK</span> <span class="pre">location&gt;</span></code> is typically <code class="docutils literal"><span class="pre">~/Downloads</span></code>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> &lt;SDK location&gt;
+chmod +x poky-glibc-x86_64-&lt;image-name&gt;-&lt;arch&gt;-toolchain-&lt;version&gt;.sh
 </pre></div>
 </div>
-<p>It is a self extracting shell script which can be executed. This will start an interactive program which first asks where to install the SDK. The easiest way is to install it in your <cite>home</cite> directory in it’s own directory, like <cite>~/sdk</cite>, instead of the default which is <cite>/opt</cite>. <cite>/opt</cite> is most probably not prepared for your user to install anything into.</p>
+<p>It is a self extracting shell script which can be executed. This will start an interactive program
+which first asks where to install the SDK. The easiest way is to install it in your <cite>home</cite> directory
+in it’s own directory, like <cite>~/sdk</cite>, instead of the default which is <cite>/opt</cite>. <cite>/opt</cite> is most probably
+not prepared for your user to install anything into.</p>
+<p>Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>➜ jdoe@tux Downloads ./poky-glibc-x86_64-core-image-pelux-qt-corei7-64-toolchain-2.2.1.sh
 Poky <span class="o">(</span>Yocto Project Reference Distro<span class="o">)</span> SDK installer version <span class="m">2</span>.2.1
 <span class="o">=================================================================</span>
@@ -192,15 +202,18 @@ SDK has been successfully <span class="nb">set</span> up and is ready to be used
 </div>
 <div class="section" id="using-the-sdk-to-cross-compile">
 <h2>Using the SDK to cross compile<a class="headerlink" href="#using-the-sdk-to-cross-compile" title="Permalink to this headline">¶</a></h2>
-<p>Cross compiling with the help of the SDK is not much different from normal compilation. There are some more pitfalls, but let’s get on with the happy cases for now.</p>
+<p>Cross compiling with the help of the SDK is not much different from normal compilation. There are
+some more pitfalls, but let’s get on with the happy cases for now.</p>
 <div class="section" id="sourcing-environment">
 <h3>Sourcing Environment<a class="headerlink" href="#sourcing-environment" title="Permalink to this headline">¶</a></h3>
-<p>After the installation the SDK it needs to be sourced. This means that the SDK toolchain and the sysroot environment variables will be set in your active terminal session.</p>
+<p>After the installation the SDK it needs to be sourced. This means that the SDK toolchain and the
+sysroot environment variables will be set in your active terminal session.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/sdk
-<span class="nb">source</span> environment-setup-corei7-64-poky-linux
+<span class="nb">source</span> environment-setup-&lt;arch&gt;-poky-linux
 </pre></div>
 </div>
-<p>To check if the environment has already been sourced grep for variables which start with <cite>OECORE</cite> in the environment for example like this:</p>
+<p>To check if the environment has already been sourced grep for variables which start with <cite>OECORE</cite> in
+the environment for example like this:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>env <span class="p">|</span> grep OECORE
 <span class="nv">OECORE_DISTRO_VERSION</span><span class="o">=</span><span class="m">2</span>.2.1
 <span class="nv">OECORE_SDK_VERSION</span><span class="o">=</span><span class="m">2</span>.2.1
@@ -210,7 +223,9 @@ SDK has been successfully <span class="nb">set</span> up and is ready to be used
 </div>
 <div class="section" id="cross-compiling">
 <h3>Cross Compiling<a class="headerlink" href="#cross-compiling" title="Permalink to this headline">¶</a></h3>
-<p>In the easiest case, when all the projects dependencies are already installed in the SDK, crosscompiling is really easy. Navigate in to the directory and use cmake and make to compile it as you normally would (see <a class="reference internal" href="template-service.html#template-service-compilation-label"><span class="std std-ref">Compilation</span></a>). The environment will make sure that the right compiler and cmake will be used.</p>
+<p>In the easiest case, when all the projects dependencies are already installed in the SDK,
+crosscompiling is really easy. Navigate in to the directory and use cmake and make to compile it as
+you normally would The environment will make sure that the right compiler and cmake will be used.</p>
 </div>
 </div>
 <div class="section" id="template-service">
@@ -240,7 +255,7 @@ cmake .. <span class="o">&amp;&amp;</span> make -j4
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The example above presents how to compile the template service natively for your host machine.</p>
+<p class="last">The example above presents how to compile the template service natively for your host machine, but it works the same for cross-compilation, since the SDK will set a different environment for cmake.</p>
 </div>
 </div>
 </div>
@@ -398,18 +413,20 @@ corresponding unit test implemented in a file named
 </div>
 <div class="section" id="deploying-and-running-a-binary-executable-on-target">
 <h2>Deploying and running a binary executable on target<a class="headerlink" href="#deploying-and-running-a-binary-executable-on-target" title="Permalink to this headline">¶</a></h2>
-<p>Once the binary has been cross compiled, it needs to be installed on the target. To do so the easiest way is to use SSH. For that to work you need to know the IP address of your target.</p>
+<p>Once you have a cross compiled binary file, it needs to be installed on the target. To do so the
+easiest way is to use SSH. For that to work you need to know the IP address of your target.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The <a class="reference external" href="https://www.raspberrypi.org/documentation/remote-access/ip-address.md">Raspberry Pi documentation</a> describes how to find a new device on the network. Finding the IP address for our device will work in the same manner.</p>
+<p class="last">If you don’t know the IP address of your target, the <a class="reference external" href="https://www.raspberrypi.org/documentation/remote-access/ip-address.md">Raspberry Pi documentation</a> describes how to find a new device on the network. This can be used for any target, not just Raspberry Pi</p>
 </div>
-<p>The default user on the PELUX image is <cite>root</cite> and it doesn’t ask for a password logging in via SSH. Use <cite>scp</cite> to copy your binary to the target.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>scp build/template-service root@&lt;ip address&gt;:
+<p>The default user on the PELUX image is <cite>root</cite> and it doesn’t ask for a password logging in via SSH.
+Use <cite>scp</cite> to copy your binary to the target.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>scp build/<span class="p">|</span>example-sdk-binary<span class="p">|</span> root@&lt;ip address&gt;:
 </pre></div>
 </div>
 <p>Now that the binary file has been copied to the target it can be run there.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>ssh root@&lt;ip address&gt;
-./template-service
+./<span class="p">|</span>example-sdk-binary<span class="p">|</span>
 </pre></div>
 </div>
 </div>
@@ -422,7 +439,7 @@ corresponding unit test implemented in a file named
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../licensing/index.html" class="btn btn-neutral float-right" title="Licensing" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../../swf-blueprint/docs/articles/licensing/index.html" class="btn btn-neutral float-right" title="Licensing" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../ci-and-cd/index.html" class="btn btn-neutral" title="Continuous integration and deployment" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -456,7 +473,7 @@ corresponding unit test implemented in a file named
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1.0-34fb75d 2017-08-16',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

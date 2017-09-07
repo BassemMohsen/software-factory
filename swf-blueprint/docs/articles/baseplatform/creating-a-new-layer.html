@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Creating a new layer &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> software-factory
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/workflow/index.html">Git workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/baseplatform/index.html">Base Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/sdk/index.html">Software Development Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing/index.html">Licensing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">software-factory</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Creating a new layer</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/swf-blueprint/docs/articles/baseplatform/creating-a-new-layer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="creating-a-new-layer">
+<h1>Creating a new layer<a class="headerlink" href="#creating-a-new-layer" title="Permalink to this headline">¶</a></h1>
+<p>A new layer should be added in a few different scenarios:</p>
+<ul class="simple">
+<li>A new Yocto project is created (such as when a new customer project needs a new layer)</li>
+<li><dl class="first docutils">
+<dt>An easily separable, distinct new feature, easily reusable by other projects is added</dt>
+<dd><ul class="first last">
+<li>An example of this could be a layer for a maps and navigation software, or a new graphical
+framework (such as Qt, or GTK, etc.)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>An existing project needs to be tweaked somehow, such as changing color schemes of an existing HMI
+for use in an exhibition</li>
+</ul>
+<div class="section" id="using-poky-scripts-for-generating-the-layer">
+<h2>Using Poky scripts for generating the layer<a class="headerlink" href="#using-poky-scripts-for-generating-the-layer" title="Permalink to this headline">¶</a></h2>
+<p>Poky ships with  a script named <code class="docutils literal"><span class="pre">yocto-layer</span></code>, which is used to generate the
+base for a new Yocto layer, including a README file, license information, and a
+layer configuration file.</p>
+<p>The Poky <code class="docutils literal"><span class="pre">yocto-layer</span></code> script can be found in
+<code class="docutils literal"><span class="pre">&lt;poky</span> <span class="pre">layer</span> <span class="pre">dir&gt;/scripts/yocto-layer</span></code>, and can be invoked in the following
+way:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>scripts/yocto-layer create meta-mylayer <span class="m">9</span> -o /path/to/sources/meta-mylayer
+</pre></div>
+</div>
+<p>where the parameters have the following meaning:</p>
+<ul class="simple">
+<li>create - Create a new layer (as opposed to listing existing layers)</li>
+<li>meta-mylayer - Name of the layer to create. It is common practice to prefix layers with <code class="docutils literal"><span class="pre">meta-</span></code>.</li>
+<li>9 - This is the layer priority. Ensure this priority is <em>higher</em> than the priority of the layer
+you are building upon. For more information on layer priorities, please see the
+<code class="docutils literal"><span class="pre">BBFILE_PRIOTIRY</span></code> variable of the BitBake user manual <a class="footnote-reference" href="#bbmanual" id="id1">[1]</a>.</li>
+<li><code class="docutils literal"><span class="pre">-o</span> <span class="pre">/path/to/sources/meta-mylayer</span></code> - Output path of the layer. This directory will be created,
+and will contain the layer files.</li>
+</ul>
+<div class="section" id="modifying-the-output-of-yocto-layer">
+<h3>Modifying the output of <code class="docutils literal"><span class="pre">yocto-layer</span></code><a class="headerlink" href="#modifying-the-output-of-yocto-layer" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">yocto-layer</span></code> generates a <code class="docutils literal"><span class="pre">README</span></code> template file, which should be filled in before the layer is
+used. This README will make it easier for users of your layer to know how to integrate it in their
+builds. In addition to this, a <code class="docutils literal"><span class="pre">COPYING.MIT</span></code> license file is added. The license of the layer
+should be updated if needed.</p>
+<p>It is recommended to have a look in <code class="docutils literal"><span class="pre">conf/layer.conf</span></code> (also generated by the <code class="docutils literal"><span class="pre">yocto-layer</span></code>
+script), to verify that it looks correct. A cursory look into this file will reveal that recipes are
+expected to be placed in <code class="docutils literal"><span class="pre">recipes-&lt;CATEGORY&gt;</span></code> in the root of your new layer. A list of common
+recipe categories can be found in <code class="docutils literal"><span class="pre">poky/meta/recipes.txt</span></code>, where <code class="docutils literal"><span class="pre">poky</span></code> is the base directory of
+the <code class="docutils literal"><span class="pre">poky</span></code> git repository. If you can not find a suitable category in <code class="docutils literal"><span class="pre">recipes.txt</span></code>, you are
+free to invent your own category.</p>
+</div>
+</div>
+<div class="section" id="using-the-new-layer-in-a-build">
+<h2>Using the new layer in a build<a class="headerlink" href="#using-the-new-layer-in-a-build" title="Permalink to this headline">¶</a></h2>
+<p>In order to include the new layer in a Yocto build, it must be specified in the <code class="docutils literal"><span class="pre">bblayers.conf</span></code>
+file used by your project. If you already have a <code class="docutils literal"><span class="pre">bblayers.conf</span></code> file, you may add your new layer
+to this file.</p>
+<p>If you do not already have a <code class="docutils literal"><span class="pre">bblayers.conf</span></code> file, and if this new layer is meant to supply one,
+you may use the <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> <a class="footnote-reference" href="#templateconf" id="id2">[2]</a> feature of the <code class="docutils literal"><span class="pre">oe-init-build-env</span></code> script.</p>
+<div class="section" id="using-templateconf">
+<h3>Using <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code><a class="headerlink" href="#using-templateconf" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> specifies a directory containing samples for <code class="docutils literal"><span class="pre">local.conf</span></code> and <code class="docutils literal"><span class="pre">bblayers.conf</span></code>.
+By supplying these two files with your layer, you will make it easier for developers to get going
+with your layer.</p>
+<p>The <code class="docutils literal"><span class="pre">conf</span></code> directory on the root level of your layer is typically used for storing the
+<code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> files. Below are examples of <code class="docutils literal"><span class="pre">local.conf.sample</span></code> and <code class="docutils literal"><span class="pre">bblayers.conf.sample</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">local.conf.sample</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nv">CONF_VERSION</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="nv">DL_DIR</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TOPDIR</span><span class="si">}</span><span class="s2">/downloads&quot;</span>
+
+<span class="nv">MACHINE</span> <span class="o">=</span> <span class="s2">&quot;qemux86&quot;</span>
+<span class="nv">SDKMACHINE</span> <span class="o">=</span> <span class="s2">&quot;x86_64&quot;</span>
+<span class="nv">DISTRO</span> <span class="o">=</span> <span class="s2">&quot;poky&quot;</span>
+
+BB_NUMBER_THREADS ?<span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span><span class="p">@oe.utils.cpu_count()</span><span class="si">}</span><span class="s2">&quot;</span>
+PARALLEL_MAKE ?<span class="o">=</span> <span class="s2">&quot;-j </span><span class="si">${</span><span class="p">@oe.utils.cpu_count()</span><span class="si">}</span><span class="s2">&quot;</span>
+
+PACKAGE_CLASSES ?<span class="o">=</span> <span class="s2">&quot;package_rpm&quot;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p><code class="docutils literal"><span class="pre">CONF_VERSION</span></code> should be increased each time <code class="docutils literal"><span class="pre">build/conf</span></code> changes incompatibly. Keep this until
+you update <code class="docutils literal"><span class="pre">build/conf</span></code> incompatibly.</p>
+<p><code class="docutils literal"><span class="pre">DL_DIR</span></code> specifies where to store downloaded files. Keep this as is.</p>
+<p><code class="docutils literal"><span class="pre">MACHINE</span></code> specified your target hardware. This is used to find the correct <code class="docutils literal"><span class="pre">machine</span></code>
+configuration file in your layers. <code class="docutils literal"><span class="pre">qemux86</span></code> is a virtulized x86 machine. You will most likely
+need to change this.</p>
+<p><code class="docutils literal"><span class="pre">SDKMACHINE</span></code> specifies the target architecture to produce <em>SDK</em> packages for. This is typically
+the architecture of your workstation.</p>
+<p><code class="docutils literal"><span class="pre">DISTRO</span></code> specifies the <code class="docutils literal"><span class="pre">distro</span></code> config you will be using. A common option here is <code class="docutils literal"><span class="pre">poky</span></code> to
+use the <code class="docutils literal"><span class="pre">poky</span></code> distribution.</p>
+<p><code class="docutils literal"><span class="pre">BB_NUMBER_THREADS</span></code> and <code class="docutils literal"><span class="pre">PARALLEL_MAKE</span></code> are used to speed up building by using multiple CPU
+cores. You may keep these as is.</p>
+<p><code class="docutils literal"><span class="pre">PACKAGE_CLASSES</span></code> specifies the output package format. The example will produce <code class="docutils literal"><span class="pre">rpm</span></code> packages.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">bblayers.conf.sample</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nv">LCONF_VERSION</span> <span class="o">=</span> <span class="s2">&quot;6&quot;</span>
+
+<span class="nv">BBPATH</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TOPDIR</span><span class="si">}</span><span class="s2">&quot;</span>
+YOCTOROOT :<span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span><span class="p">@os.path.abspath(os.path.dirname(d.getVar(</span><span class="s1">&#39;FILE&#39;</span><span class="p">, True)) + </span><span class="s1">&#39;/../..&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+BBFILES  ?<span class="o">=</span> <span class="s2">&quot;&quot;</span>
+BBLAYERS ?<span class="o">=</span> <span class="s2">&quot;                                            \</span>
+<span class="s2">  </span><span class="si">${</span><span class="nv">YOCTOROOT</span><span class="si">}</span><span class="s2">/sources/poky/meta                         \</span>
+<span class="s2">  </span><span class="si">${</span><span class="nv">YOCTOROOT</span><span class="si">}</span><span class="s2">/sources/poky/meta-yocto                   \</span>
+<span class="s2">  </span><span class="si">${</span><span class="nv">YOCTOROOT</span><span class="si">}</span><span class="s2">/sources/poky/meta-yocto-bsp               \</span>
+<span class="s2">  </span><span class="si">${</span><span class="nv">YOCTOROOT</span><span class="si">}</span><span class="s2">/sources/meta-mylayer                      \</span>
+<span class="s2">  &quot;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p><code class="docutils literal"><span class="pre">LCONF_VERSION</span></code> one line 1 is used to indicate compatibility issues between <code class="docutils literal"><span class="pre">local.conf</span></code> and
+<code class="docutils literal"><span class="pre">bblayers.conf</span></code>. You can usually leave this at “6”, but if <code class="docutils literal"><span class="pre">bblayers.conf</span></code> changes incompatibly,
+then update this variable.</p>
+<p><code class="docutils literal"><span class="pre">BBPATH</span></code> on line 3 is used by BitBake to locate the top level of your Yocto build. Keep this as
+is.</p>
+<p><code class="docutils literal"><span class="pre">YOCTOROOT</span></code> resolves to the parent directory of your <code class="docutils literal"><span class="pre">source</span></code> and <code class="docutils literal"><span class="pre">build</span></code> directories, and is
+a useful way to avoid absolute paths in <code class="docutils literal"><span class="pre">bblayers.conf</span></code>. Keep this as is.</p>
+<p><code class="docutils literal"><span class="pre">BBFILES</span></code> should be kept as is, since no extra recipes are supplied in the <code class="docutils literal"><span class="pre">bblayers.conf</span></code> (this
+is done by each individual layer instead).</p>
+<p><code class="docutils literal"><span class="pre">BBLAYERS</span></code> is the most important variable in your <code class="docutils literal"><span class="pre">bblayers.conf</span></code>, this variable specifies the
+layers to use for your Yocto build. This variable needs to contain all layers you intend to include.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As always, for additional options and full documentation of BitBake concepts. See the BitBake user manual <a class="footnote-reference" href="#bbmanual" id="id3">[1]</a>.</p>
+</div>
+<table class="docutils footnote" frame="void" id="bbmanual" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> <a class="reference external" href="http://www.yoctoproject.org/docs/latest/bitbake-user-manual/bitbake-user-manual.html">http://www.yoctoproject.org/docs/latest/bitbake-user-manual/bitbake-user-manual.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="templateconf" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://www.yoctoproject.org/docs/latest/dev-manual/dev-manual.html#creating-a-custom-template-configuration-directory">http://www.yoctoproject.org/docs/latest/dev-manual/dev-manual.html#creating-a-custom-template-configuration-directory</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Pelagicore AB.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

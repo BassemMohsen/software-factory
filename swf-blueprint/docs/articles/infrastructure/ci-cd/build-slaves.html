@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build Slaves &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../../search.html"/>
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../../../../index.html"/> 
+
+  
+  <script src="../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> software-factory
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../chapters/intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../chapters/workflow/index.html">Git workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../chapters/baseplatform/index.html">Base Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../chapters/sdk/index.html">Software Development Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../licensing/index.html">Licensing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../../index.html">software-factory</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Build Slaves</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/swf-blueprint/docs/articles/infrastructure/ci-cd/build-slaves.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="build-slaves">
+<h1>Build Slaves<a class="headerlink" href="#build-slaves" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="running-a-public-slave">
+<h2>Running a public slave<a class="headerlink" href="#running-a-public-slave" title="Permalink to this headline">¶</a></h2>
+<p>In order to run a slave which the master can reach via SSH you still need to prepare some things:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># Install prerequesits</span>
+sudo apt install openjdk-8-jdk-headless docker.io vagrant
+
+<span class="c1"># create a jenkins user and add it to the docker group so</span>
+<span class="c1"># it can run docker without becoming root</span>
+sudo useradd jenkins
+sudo usermod -aG docker jenkins
+</pre></div>
+</div>
+<div class="section" id="connecting-to-the-slave-using-ssh">
+<h3>Connecting to the slave using SSH<a class="headerlink" href="#connecting-to-the-slave-using-ssh" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="generating-ssh-keypairs">
+<h4>Generating SSH keypairs<a class="headerlink" href="#generating-ssh-keypairs" title="Permalink to this headline">¶</a></h4>
+<p>A private and public SSH keypair must be generated. The Jenkins master server will connect to the Jenkins build slaves using SSH. The Jenkins master server will have the SSH <em>private</em> key, in order to initiate the SSH connection, and the Jenkins build slaves will have <em>public</em> keys added to their respective <code class="docutils literal"><span class="pre">jenkins</span></code> users.</p>
+<p>Generate one keypair per build slave using the following command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>ssh-keygen -f build_slave_key
+</pre></div>
+</div>
+<p>Add the public key file (<code class="docutils literal"><span class="pre">build_slave_key.pub</span></code>) to <code class="docutils literal"><span class="pre">/home/jenkins/.ssh/authorized_keys</span></code> on your Jenkins <em>build slave</em> (or replace <code class="docutils literal"><span class="pre">jenkins</span></code> with the user you chose for your Jenkins build slave). Save the private key. It will be used when configuring Jenkins.</p>
+</div>
+<div class="section" id="configuring-jenkins">
+<h4>Configuring Jenkins<a class="headerlink" href="#configuring-jenkins" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic">
+<li><p class="first">Go to Jenkins -&gt; Manage Jenkins -&gt; Nodes -&gt; New Node</p>
+</li>
+<li><p class="first">Add the node name and set “Permanent Agent”</p>
+</li>
+<li><p class="first">Put in the name and the remote root directory, you should have a special user like <code class="docutils literal"><span class="pre">jenkins</span></code> to run it so set <code class="docutils literal"><span class="pre">/home/jenkins/</span></code></p>
+</li>
+<li><p class="first">Set the labels which this slave can run, for example <code class="docutils literal"><span class="pre">DockerCI</span></code></p>
+</li>
+<li><p class="first">Have the Launch method set to “Launch slave agents via SSH”</p>
+</li>
+<li><p class="first">Enter the address to the slave in the “Host” field</p>
+</li>
+<li><p class="first">If you already have the credentials added for this slave, select them in the “Credentials” field, and skip steps 7a-7f. If not, press the “Add” button in the “Credentials” field, and follow steps 7a-7f.</p>
+<blockquote>
+<div><ul class="simple">
+<li>7a. Set “Domain” to “Global credentials (unrestricted)”</li>
+<li>7b. Set “Kind” to “SSH username with private key”</li>
+<li>7c. Set “Username” to “jenkins” (assuming that you use this UNIX username for your jenkins user)</li>
+<li>7d. Set “Private Key” to “Enter Directly”, and supply the <em>private</em> key you generated previously</li>
+<li>7e. Set “Passphrase” as needed, or leave empty if no passphrase is set</li>
+<li>7f. Set “Description” to a suitable description</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Select the correct key in “Credentials”</p>
+</li>
+<li><p class="first">Set “Host Key Verification Strategy” to “Non verifying Verification Strategy”</p>
+</li>
+<li><p class="first">Set “Availability” to “Keep this agent online as much as possible”</p>
+</li>
+<li><p class="first">Press “Save”</p>
+</li>
+</ol>
+<p>You may verify the status of the build slave under the status page of the build slave.</p>
+</div>
+</div>
+</div>
+<div class="section" id="running-a-private-slave">
+<h2>Running a private slave<a class="headerlink" href="#running-a-private-slave" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes it’s necessary to run slaves from a private network. Then you need to run a java program which will connect to the master instead the master connecting to the slave. To do so, set up a new slave in Jenkins.</p>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>You need to have the same Java version running on the slave as your Jenkins master runs. Nowadays the docker LTS version runs Java 8.</p>
+<p>Best practice is also to create a unix user the slave will run with on your machine, you can call the user jenkins. If you will run Docker, make sure this user is in the <code class="docutils literal"><span class="pre">docker</span></code> group.</p>
+</div>
+<div class="section" id="how-to-setup-and-install">
+<h3>How to setup and install<a class="headerlink" href="#how-to-setup-and-install" title="Permalink to this headline">¶</a></h3>
+<p>Replace &lt;URL&gt; in the file with the real URL to the Jenkins server.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>[Unit]
+Description=Jenkins slave for pelux.io
+
+[Service]
+User=%i
+Restart=always
+ExecStart=/usr/bin/java -jar /home/%i/slave.jar -jnlpUrl &lt;URL&gt;/slave-agent.jnlp -secret &lt;SECRET&gt;
+
+[Install]
+WantedBy=multi-user.target
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>Go to Jenkins -&gt; Manage Jenkins -&gt; Nodes -&gt; New Node</li>
+<li>Add the node name and set “Permanent Agent”</li>
+<li>Put in the name and the remote root directory, you should have a special user like <code class="docutils literal"><span class="pre">jenkins</span></code> to run it so set <code class="docutils literal"><span class="pre">/home/jenkins/</span></code></li>
+<li>Set the lables which this slave can run, for example <code class="docutils literal"><span class="pre">DockerCI</span></code></li>
+<li>Have the Launch method set to Launch agent via Java Web Start</li>
+<li>Save</li>
+<li>Click on that slave in the list to get to the online/offline view of it</li>
+<li>Copy the command line shown there and put it into the <code class="docutils literal"><span class="pre">jenkins.slave.service</span></code> file</li>
+<li>Download the linked <code class="docutils literal"><span class="pre">slave.jar</span></code> and put it into the home directory of the jenkins user so that the service can find it</li>
+<li>Copy the changed <code class="docutils literal"><span class="pre">jenkins.slave&#64;.service</span></code> to <code class="docutils literal"><span class="pre">/lib/systemd/system/</span></code></li>
+<li>Enable and start the service: <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">enable</span> <span class="pre">jenkins.slave&#64;jenkins</span> <span class="pre">&amp;&amp;</span> <span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">start</span> <span class="pre">jenkins.slave&#64;jenkins</span></code></li>
+<li>Check if the slave connected without problems <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">journalctl</span> <span class="pre">-b</span> <span class="pre">-u</span> <span class="pre">jenkins.slave&#64;jenkins</span></code></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Pelagicore AB.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

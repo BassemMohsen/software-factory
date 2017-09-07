@@ -1,0 +1,19 @@
+Software Factory Blueprint
+**************************
+Revision: |release|
+
+.. toctree::
+    :caption: Table of contents:
+    :maxdepth: 3
+
+    articles/intro/index.rst
+
+    articles/baseplatform/index.rst
+
+    articles/infrastructure/ci-cd/index.rst
+
+    articles/licensing/index.rst
+
+    articles/sdk/index.rst
+
+    articles/workflow/git-workflow.rst

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Obtaining a PELUX release &mdash; software-factory 0.1.0-34fb75d 2017-08-16 documentation</title>
+  <title>Obtaining a PELUX release &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="software-factory 0.1.0-34fb75d 2017-08-16 documentation" href="../../index.html"/> 
+    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../index.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -85,12 +85,11 @@
                 <p class="caption"><span class="caption-text">Table of contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/git-workflow.html">Git workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../workflow/github-tips-and-tricks.html">GitHub Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow/index.html">Git workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Base Platform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ci-and-cd/index.html">Continuous integration and deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sdk/index.html">Software Development Kit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../licensing/index.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
 </ul>
 
             
@@ -145,17 +144,24 @@
 </ul>
 <p>Variables:</p>
 <ul class="simple">
-<li>Manifest, refers to what <cite>&lt;manifest-name&gt;.xml</cite> file you want to use, for example <cite>pelux-intel.xml</cite>. Each hardware platform targeted by the PELUX reference has its own manifest describing what other git repositories are needed for the build.</li>
-<li>Image, refers to what version of PELUX should be built. Currently there are two versions: <cite>core-image-pelux</cite> and <cite>core-image-pelux-qtauto</cite>. The latter being a version that includes <a class="reference external" href="https://www.qt.io/qt-automotive-suite/">Qt Automotive Suite</a> components that enable the NeptuneUI demo application.</li>
+<li>Manifest, refers to what <cite>&lt;manifest-name&gt;.xml</cite> file you want to use, for example
+<cite>pelux-intel.xml</cite>. Each hardware platform targeted by the PELUX reference has its own manifest
+describing what other git repositories are needed for the build.</li>
+<li>Image, refers to what version of PELUX should be built. Currently there are two versions:
+<cite>core-image-pelux</cite> and <cite>core-image-pelux-qtauto</cite>. The latter being a version that includes <a class="reference external" href="https://www.qt.io/qt-automotive-suite/">Qt
+Automotive Suite</a> components that enable the NeptuneUI demo application.</li>
 </ul>
-<p>Create a directory for the PELUX build. Instruct repo tool to fetch a manifest using the command <cite>repo init</cite>. In this context, branch denotes what branch of git repo <cite>pelux-manifests</cite> to use. Then make repo tool fetch all sources using the command <cite>repo sync</cite>.</p>
+<p>Create a directory for the PELUX build. Instruct repo tool to fetch a manifest using the command
+<cite>repo init</cite>. In this context, branch denotes what branch of git repo <cite>pelux-manifests</cite> to use. Then
+make repo tool fetch all sources using the command <cite>repo sync</cite>.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir pelux
 <span class="nb">cd</span> pelux
 repo init -u https://github.com/Pelagicore/pelux-manifests.git -m &lt;manifest&gt; -b &lt;branch&gt;
 repo sync
 </pre></div>
 </div>
-<p>When done fetching the sources, create a build directory and set up bitbake. <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> tells the <code class="docutils literal"><span class="pre">oe-init-build-env</span></code> script which path to fetch configuration samples from.</p>
+<p>When done fetching the sources, create a build directory and set up bitbake. <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> tells
+the <code class="docutils literal"><span class="pre">oe-init-build-env</span></code> script which path to fetch configuration samples from.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The example below get the template configuration for the Intel BSP, adapt the path according to your current BSP.</p>
@@ -163,12 +169,17 @@ repo sync
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">TEMPLATECONF</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/sources/meta-pelux-bsp-intel/conf/ <span class="nb">source</span> sources/poky/oe-init-build-env build
 </pre></div>
 </div>
-<p>The script will create configs if there are no configs present, a message about created <code class="docutils literal"><span class="pre">conf/local.conf</span></code> and <code class="docutils literal"><span class="pre">conf/bblayers.conf</span></code> files is normal.</p>
+<p>The script will create configs if there are no configs present, a message about created
+<code class="docutils literal"><span class="pre">conf/local.conf</span></code> and <code class="docutils literal"><span class="pre">conf/bblayers.conf</span></code> files is normal.</p>
 <p>Finally, build the desired image. See the variables description above for information on the different images.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>bitbake &lt;image&gt;
 </pre></div>
 </div>
-<p>When the build is complete the result will be available in <code class="docutils literal"><span class="pre">tmp/deploy/images/&lt;machine&gt;/</span></code>. It is possible to generate a number of different image formats, ranging from just the rootfs as a tarball to ready disk-images containing EFI-bootloader, configuration and rootfs and that can be written directly to a storage device. For PELUX, the preffered format for the Intel NUC are .wic images, which are complete disk-images.</p>
+<p>When the build is complete the result will be available in <code class="docutils literal"><span class="pre">tmp/deploy/images/&lt;machine&gt;/</span></code>. It is
+possible to generate a number of different image formats, ranging from just the rootfs as a tarball
+to ready disk-images containing EFI-bootloader, configuration and rootfs and that can be written
+directly to a storage device. For PELUX, the preferred format for the Intel NUC are .wic images,
+which are complete disk-images.</p>
 </div>
 
 
@@ -203,7 +214,7 @@ repo sync
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1.0-34fb75d 2017-08-16',
+            VERSION:'0.1.0-18dcd10 2017-09-07',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
