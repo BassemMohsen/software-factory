@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Software Development Kit &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
+  <title>Software Development Kit &mdash; software-factory 0.1.0-faf13cb 2017-09-08 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../index.html"/>
-        <link rel="next" title="Licensing" href="../../swf-blueprint/docs/articles/licensing/index.html"/>
+    <link rel="top" title="software-factory 0.1.0-faf13cb 2017-09-08 documentation" href="../../index.html"/>
+        <link rel="next" title="C/C++ templates" href="../../swf-blueprint/docs/articles/templates/index.html"/>
         <link rel="prev" title="Continuous integration and deployment" href="../ci-and-cd/index.html"/> 
 
   
@@ -100,19 +100,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#cross-compiling">Cross Compiling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#template-service">Template Service</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#compilation">Compilation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#source-code-repository-directory-structure">Source code repository directory structure</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mandatory-files">Mandatory files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#directory-naming">Directory naming</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#file-naming">File naming</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#deploying-and-running-a-binary-executable-on-target">Deploying and running a binary executable on target</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/templates/index.html">C/C++ templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
 </ul>
 
@@ -228,189 +219,6 @@ crosscompiling is really easy. Navigate in to the directory and use cmake and ma
 you normally would The environment will make sure that the right compiler and cmake will be used.</p>
 </div>
 </div>
-<div class="section" id="template-service">
-<h2>Template Service<a class="headerlink" href="#template-service" title="Permalink to this headline">¶</a></h2>
-<p>The template service serves as an example <a class="reference external" href="https://cmake.org/">CMake</a> project for service
-developers that should be used as a starting point while creating platform
-services, as well as as a set of guidelines to follow in source
-repositories. The guidelines described are not set-in-stone. Also, in
-general consistency is better than getting stuck on difficult-to-apply
-guidelines so please use these to an extent which is reasonable. The point
-is to support a common pattern within the project.</p>
-<p>To acquire the template service source code the user needs to fetch the
-code from github.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/Pelagicore/template-service.git
-</pre></div>
-</div>
-<div class="section" id="compilation">
-<span id="template-service-compilation-label"></span><h3>Compilation<a class="headerlink" href="#compilation" title="Permalink to this headline">¶</a></h3>
-<p>In order to compile the template service the user needs to use the CMake
-build system. The CMake build system can be installed by following the
-instructions on the <a class="reference external" href="https://cmake.org/install/">CMake install webpage</a> or by using your Linux
-distribution’s package manager.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> template-service
-mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
-cmake .. <span class="o">&amp;&amp;</span> make -j4
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The example above presents how to compile the template service natively for your host machine, but it works the same for cross-compilation, since the SDK will set a different environment for cmake.</p>
-</div>
-</div>
-</div>
-<div class="section" id="source-code-repository-directory-structure">
-<h2>Source code repository directory structure<a class="headerlink" href="#source-code-repository-directory-structure" title="Permalink to this headline">¶</a></h2>
-<p>In order to make it easier to navigate through new repositories they
-should follow a common directory structure. The tree structure below
-shows a repository with two components sharing a ‘doc’ directory and
-‘component-test’ directory. Many repos will likely contain only one
-component, in which case the structure should be the same but with only
-one subdirectory with the source code etc.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>.
-├── cmake_modules
-├── component-A
-│   ├── include
-│   ├── src
-│   ├── unit-test
-│   │   ├── test-data
-├── component-B
-│   ├── include
-│   ├── src
-│   ├── unit-test
-│   │   ├── test-data
-├── component-test
-│   ├── test-data
-├── doc
-│   ├── images
-│   │   └── *.png
-│   ├── design.md
-│   ├── mainpage.h
-├── scripts
-├── DEPENDENCIES
-├── LICENSE
-└── README.md
-</pre></div>
-</div>
-<p>The table below describes the directories and their purpose. The
-&lt;component-subdir&gt; represents e.g. the ‘component-A’ or ‘component-B’
-directories in the tree structure above. Some directories are only
-relevant in some situations, e.g. a ‘test-data’ dir is only relevant
-if there is any actual test data of course.</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="28%" />
-<col width="72%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Directory</th>
-<th class="head">Description</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>scripts</td>
-<td>Contains e.g. utility scripts that might be needed to e.g. set up an environment or such like.</td>
-</tr>
-<tr class="row-odd"><td>cmake_modules</td>
-<td>Contains any CMake ‘find’ modules.</td>
-</tr>
-<tr class="row-even"><td>doc</td>
-<td>Contains doxygen files for generating reference documentation that is not part of any class
-etc, e.g. introductory pages and topic overviews. Contains design.md, describing the design
-of the component in an arc42 structure.</td>
-</tr>
-<tr class="row-odd"><td>doc/images</td>
-<td>Contains images for the design and doxygen documentation.
-The preferred file format is png. If the image is generated from another document, it is
-recommended to keep that document here as well, e.g. a UML model.</td>
-</tr>
-<tr class="row-even"><td>component-test</td>
-<td>Contains tests and any stubs used in component tests.</td>
-</tr>
-<tr class="row-odd"><td>component-test/test-data</td>
-<td>Contains any test data that the component tests uses.</td>
-</tr>
-<tr class="row-even"><td>&lt;component-subdir&gt;/include</td>
-<td>Contains any public header files, those that would typically be installed in a development package.</td>
-</tr>
-<tr class="row-odd"><td>&lt;component-subdir&gt;/src</td>
-<td>Contains source and private header files.</td>
-</tr>
-<tr class="row-even"><td>&lt;component-subdir&gt;/unit-test</td>
-<td>Contains unit tests and any stubs used in unit tests.</td>
-</tr>
-<tr class="row-odd"><td>&lt;component-subdir&gt;/unit-test/test-data</td>
-<td>Contains any test data that the unit tests uses.</td>
-</tr>
-</tbody>
-</table>
-<div class="section" id="mandatory-files">
-<h3>Mandatory files<a class="headerlink" href="#mandatory-files" title="Permalink to this headline">¶</a></h3>
-<p>Certain files should be found in every repository, those files are described below.</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="11%" />
-<col width="89%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">File</th>
-<th class="head">Description</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>README(.md)</td>
-<td>A top-level README giving a brief introduction to the repository.
-How to build, how to run tests, other “good to know” information.
-The .md suffix for markdown syntax may be used.</td>
-</tr>
-<tr class="row-odd"><td>LICENSE</td>
-<td>The source code and project license.</td>
-</tr>
-<tr class="row-even"><td>DEPENDENCIES</td>
-<td>Describes any non-trivial dependency used by a component.
-Typically a library linked against such as libfoo would be listed while a compiler and libstdc++ would not be listed.</td>
-</tr>
-<tr class="row-odd"><td>CONTRIBUTING.md</td>
-<td><dl class="first last docutils">
-<dt>For OSS projects this file should exist and contain the following information:</dt>
-<dd><ul class="first last simple">
-<li>How and where to file bug reports and what information is expected in them.</li>
-<li>How the development flow works, for instance forks and merge requests.</li>
-<li>Brief about code standard</li>
-</ul>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="row-even"><td>doc/mainpage.h</td>
-<td>Introductory component documentation.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="directory-naming">
-<h3>Directory naming<a class="headerlink" href="#directory-naming" title="Permalink to this headline">¶</a></h3>
-<p>All directories should be lower case only, and using “-” as a separator
-between words. No other symbols other than [a..z], [0..9] and “-” are
-allowed. Exceptions are allowed if there is a technical need which is
-cumbersome to work around.</p>
-</div>
-<div class="section" id="file-naming">
-<h3>File naming<a class="headerlink" href="#file-naming" title="Permalink to this headline">¶</a></h3>
-<p>The source code and header files should be named using lower case letters
-only, without any word separator. No other symbols other than [a..z] and
-[0..9] are allowed. C++ source files should be suffixed “.cpp” and header
-files “.h”. The exception is test code files where an underscore is used
-to separate the name of what is tested and a suffix showing that it is a
-test, e.g. a unit with the name ‘mymodule.cpp’/’mymodule.h’ would have a
-corresponding unit test implemented in a file named
-‘mymodule_unittest.cpp’.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The repository meta data files such as the readme, license and makefiles are allowed to use upper case letters in their naming.</p>
-</div>
-</div>
-</div>
 <div class="section" id="deploying-and-running-a-binary-executable-on-target">
 <h2>Deploying and running a binary executable on target<a class="headerlink" href="#deploying-and-running-a-binary-executable-on-target" title="Permalink to this headline">¶</a></h2>
 <p>Once you have a cross compiled binary file, it needs to be installed on the target. To do so the
@@ -439,7 +247,7 @@ Use <cite>scp</cite> to copy your binary to the target.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../swf-blueprint/docs/articles/licensing/index.html" class="btn btn-neutral float-right" title="Licensing" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../../swf-blueprint/docs/articles/templates/index.html" class="btn btn-neutral float-right" title="C/C++ templates" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../ci-and-cd/index.html" class="btn btn-neutral" title="Continuous integration and deployment" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -473,7 +281,7 @@ Use <cite>scp</cite> to copy your binary to the target.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1.0-18dcd10 2017-09-07',
+            VERSION:'0.1.0-faf13cb 2017-09-08',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

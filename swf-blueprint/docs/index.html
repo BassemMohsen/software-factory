@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Software Factory Blueprint &mdash; software-factory 0.1.0-18dcd10 2017-09-07 documentation</title>
+  <title>Software Factory Blueprint &mdash; software-factory 0.1.0-faf13cb 2017-09-08 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="software-factory 0.1.0-18dcd10 2017-09-07 documentation" href="../../index.html"/> 
+    <link rel="top" title="software-factory 0.1.0-faf13cb 2017-09-08 documentation" href="../../index.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -89,6 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../chapters/baseplatform/index.html">Base Platform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../chapters/sdk/index.html">Software Development Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/templates/index.html">C/C++ templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="articles/licensing/index.html">Licensing</a></li>
 </ul>
 
@@ -136,7 +137,7 @@
             
   <div class="section" id="software-factory-blueprint">
 <h1>Software Factory Blueprint<a class="headerlink" href="#software-factory-blueprint" title="Permalink to this headline">¶</a></h1>
-<p>Revision: 0.1.0-18dcd10 2017-09-07</p>
+<p>Revision: 0.1.0-faf13cb 2017-09-08</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Table of contents:</span></p>
 <ul>
@@ -169,12 +170,6 @@
 <li class="toctree-l1"><a class="reference internal" href="articles/infrastructure/ci-cd/index.html">Continous Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="articles/licensing/index.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="articles/sdk/index.html">Software Development Kit</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="articles/sdk/directory-structure.html">Source code repository directory structure</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="articles/sdk/directory-structure.html#mandatory-files">Mandatory files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="articles/sdk/directory-structure.html#directory-naming">Directory naming</a></li>
-<li class="toctree-l3"><a class="reference internal" href="articles/sdk/directory-structure.html#file-naming">File naming</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="articles/sdk/installing-the-sdk.html">Installing the SDK</a></li>
 <li class="toctree-l2"><a class="reference internal" href="articles/sdk/using-the-sdk-to-crosscompile.html">Using the SDK to cross compile</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="articles/sdk/using-the-sdk-to-crosscompile.html#sourcing-environment">Sourcing Environment</a></li>
@@ -182,6 +177,31 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="articles/sdk/run-binary-on-target.html">Deploying and running a binary executable on target</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="articles/templates/index.html">C/C++ templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="articles/templates/index.html#source-code-repository-directory-structure">Source code repository directory structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="articles/templates/index.html#mandatory-files">Mandatory files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="articles/templates/index.html#directory-naming">Directory naming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="articles/templates/index.html#file-naming">File naming</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="articles/templates/index.html#template-library">Template library</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="articles/templates/index.html#compilation-and-installation">Compilation and installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="articles/templates/index.html#template-service">Template service</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="articles/templates/index.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="articles/templates/index.html#id1">Compilation and installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="articles/templates/index.html#running-the-template-service">Running the template service</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="articles/templates/index.html#install-directory-structure">Install directory structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="articles/templates/index.html#yocto-project-integration">Yocto Project integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="articles/templates/index.html#template-recipes">Template recipes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="articles/templates/index.html#target-image-integration">Target image integration</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="articles/workflow/git-workflow.html">Git workflow</a><ul>
@@ -226,7 +246,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1.0-18dcd10 2017-09-07',
+            VERSION:'0.1.0-faf13cb 2017-09-08',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

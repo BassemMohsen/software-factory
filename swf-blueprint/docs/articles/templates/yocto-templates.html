@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Yocto Project integration &mdash; software-factory 0.1.0-faf13cb 2017-09-08 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="software-factory 0.1.0-faf13cb 2017-09-08 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> software-factory
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/workflow/index.html">Git workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/baseplatform/index.html">Base Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../chapters/sdk/index.html">Software Development Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">C/C++ templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing/index.html">Licensing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">software-factory</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Yocto Project integration</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/swf-blueprint/docs/articles/templates/yocto-templates.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="yocto-project-integration">
+<h1>Yocto Project integration<a class="headerlink" href="#yocto-project-integration" title="Permalink to this headline">¶</a></h1>
+<p>This section describes how to include a shared library or platform service in the target image using
+the <a class="reference external" href="https://www.yoctoproject.org/">Yocto Project</a>. A key part of this is an open source build system, based around the
+OpenEmbedded architecture, that enables developers to create their own Linux distribution specific
+to their environment. <a class="reference external" href="https://www.yoctoproject.org/docs/current/bitbake-user-manual/bitbake-user-manual.html">BitBake</a> is the build tool used in this setup:</p>
+<blockquote>
+<div>BitBake executes tasks according to provided metadata that builds up the tasks. Metadata is
+stored in recipe (.bb) and related recipe “append” (<code class="docutils literal"><span class="pre">.bbappend</span></code>) files, configuration
+(<code class="docutils literal"><span class="pre">.conf</span></code>) and underlying include (<code class="docutils literal"><span class="pre">.inc</span></code>) files, and in class (<code class="docutils literal"><span class="pre">.bbclass</span></code>) files. The
+metadata provides BitBake with instructions on what tasks to run and the dependencies between
+those tasks.</div></blockquote>
+<p>The developed software components are added to the project through a BitBake recipe file that, as
+mentioned above, stores the component metadata. Guidelines on how to write BitBake recipes can be
+found in the <a class="reference external" href="http://www.yoctoproject.org/docs/current/ref-manual/ref-manual.html">Yocto reference manual</a> and the reference structure is described in the <a class="reference external" href="http://www.openembedded.org/wiki/Styleguide">OpenEmbedded
+style guide</a>.</p>
+<div class="section" id="template-recipes">
+<h2>Template recipes<a class="headerlink" href="#template-recipes" title="Permalink to this headline">¶</a></h2>
+<p>Below is a template Yocto recipe for the template-service. See inline comments for description of
+the different fields available.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># Various meta-data. Description is the only mandatory field here.</span>
+<span class="nv">SUMMARY</span> <span class="o">=</span> <span class="s2">&quot;A template C/C++ service&quot;</span>
+<span class="nv">DESCRIPTION</span> <span class="o">=</span> <span class="s2">&quot;A C/C++ source code repository blueprint&quot;</span>
+<span class="nv">AUTHOR</span> <span class="o">=</span> <span class="s2">&quot;Gordan Markuš &lt;gordan.markus@pelagicore.com&gt;&quot;</span>
+<span class="nv">HOMEPAGE</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/Pelagicore/template-service&quot;</span>
+
+<span class="c1"># Short license name and where to find the license file plus its checksum. This is so that yocto</span>
+<span class="c1"># can check if the license text changes in newer versions of the software</span>
+<span class="nv">LICENSE</span> <span class="o">=</span> <span class="s2">&quot;MPL-2.0&quot;</span>
+<span class="nv">LIC_FILES_CHKSUM</span> <span class="o">=</span> <span class="s2">&quot;file://LICENSE;md5=815ca599c9df247a0c7f619bab123dad&quot;</span>
+
+<span class="c1"># Dependencies for building this software.</span>
+<span class="nv">DEPENDS</span> <span class="o">=</span> <span class="s2">&quot;template-library&quot;</span>
+
+<span class="c1"># Version and revision. It is in general possible to have several versions of the same software</span>
+<span class="c1"># on the same system</span>
+<span class="nv">PV</span> <span class="o">=</span> <span class="s2">&quot;1.0+git</span><span class="si">${</span><span class="nv">SRCREV</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">PR</span> <span class="o">=</span> <span class="s2">&quot;r0&quot;</span>
+
+<span class="c1"># Where to find the sources and, in the case the source is at a cvs, what revision to build</span>
+<span class="nv">SRCREV</span> <span class="o">=</span> <span class="s2">&quot;5bce3d20f996dac7e3882f48f5057abb7e1d05f5&quot;</span>
+<span class="nv">SRC_URI</span> <span class="o">=</span> <span class="s2">&quot;git://github.com/Pelagicore/template-service.git;protocol=https;branch=master&quot;</span>
+
+<span class="c1"># Where the sources are placed</span>
+<span class="nv">S</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}</span><span class="s2">/git/&quot;</span>
+
+<span class="c1"># What classes to use. The template-service is a cmake project that uses pkgconfig. In general,</span>
+<span class="c1"># just inheriting these classes makes building completely automatic without any need to tinker.</span>
+inherit cmake pkgconfig
+</pre></div>
+</div>
+</div>
+<div class="section" id="target-image-integration">
+<h2>Target image integration<a class="headerlink" href="#target-image-integration" title="Permalink to this headline">¶</a></h2>
+<p>To include the template service in the target image, the following line has to be added to the
+target image BitBake recipe:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">IMAGE_INSTALL</span> <span class="o">+=</span> <span class="s2">&quot;template-service&quot;</span>
+</pre></div>
+</div>
+<p>Observe that there is no need to add the template library explicitly. The template library will be
+included implicitly because the template service depends on it.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Pelagicore AB.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0-faf13cb 2017-09-08',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

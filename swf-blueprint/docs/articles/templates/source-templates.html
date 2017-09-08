@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Building the SDK installer &mdash; software-factory 0.1.0-faf13cb 2017-09-08 documentation</title>
+  <title>Template library &mdash; software-factory 0.1.0-faf13cb 2017-09-08 documentation</title>
   
 
   
@@ -89,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../chapters/baseplatform/index.html">Base Platform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../chapters/sdk/index.html">Software Development Kit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../templates/index.html">C/C++ templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">C/C++ templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../licensing/index.html">Licensing</a></li>
 </ul>
 
@@ -121,11 +121,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../../../index.html">Docs</a> &raquo;</li>
       
-    <li>Building the SDK installer</li>
+    <li>Template library</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../../../_sources/swf-blueprint/docs/articles/baseplatform/creating-sdk.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../../_sources/swf-blueprint/docs/articles/templates/source-templates.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -135,17 +135,85 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="building-the-sdk-installer">
-<h1>Building the SDK installer<a class="headerlink" href="#building-the-sdk-installer" title="Permalink to this headline">¶</a></h1>
-<p>Building the SDK installer is not very different from creating the corresponding
-target image. All you have to do, is pass an additional option to bitbake:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>bitbake -c populate_sdk &lt;image&gt;
+  <div class="section" id="template-library">
+<h1>Template library<a class="headerlink" href="#template-library" title="Permalink to this headline">¶</a></h1>
+<p>The template library provides an example <a class="reference external" href="https://cmake.org/">CMake</a> shared library project for
+service developers.</p>
+<p>To acquire the template service source code the user needs to fetch the
+code from github.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/Pelagicore/template-library.git
 </pre></div>
 </div>
-<p>This command will create a toolchain installer that contains the sysroot that
-matches your target root filesystem. The installer will be created in
-tmp/deploy/sdk directory. Please refer to <a class="reference internal" href="../sdk/installing-the-sdk.html#installing-sdk"><span class="std std-ref">Installing the SDK</span></a> for setup and
-usage of the generated SDK installer.</p>
+<div class="section" id="compilation-and-installation">
+<h2>Compilation and installation<a class="headerlink" href="#compilation-and-installation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> template-library
+mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/path/to/install/dir .. <span class="o">&amp;&amp;</span> make -j4
+make install
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The example above presents how to compile and install the template library natively on
+your host machine.</p>
+</div>
+</div>
+</div>
+<div class="section" id="template-service">
+<h1>Template service<a class="headerlink" href="#template-service" title="Permalink to this headline">¶</a></h1>
+<p>The template service serves as an example <a class="reference external" href="https://cmake.org/">CMake</a> project for service
+developers that should be used as a starting point while creating platform
+services.</p>
+<p>To acquire the template service source code the user needs to fetch the
+code from github.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/Pelagicore/template-service.git
+</pre></div>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The template service depends on the template library. That is reflected in its <cite>CMakeLists.txt</cite>
+file. The build system will check if the required dependencies are installed on the system through
+<a class="reference external" href="https://www.freedesktop.org/wiki/Software/pkg-config/">pkg-config</a>.</p>
+</div>
+<div class="section" id="id1">
+<h2>Compilation and installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> template-service
+mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+<span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span>/path/to/install/dir/lib/pkgconfig <span class="se">\</span>
+cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/path/to/install/dir .. <span class="o">&amp;&amp;</span> make -j4
+make install
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-template-service">
+<h2>Running the template service<a class="headerlink" href="#running-the-template-service" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/path/to/install/dir/lib <span class="se">\</span>
+path/to/install/dir/bin/template-service
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The example above presents how to compile, install and run the template service natively
+on your host machine.</p>
+</div>
+</div>
+</div>
+<div class="section" id="install-directory-structure">
+<h1>Install directory structure<a class="headerlink" href="#install-directory-structure" title="Permalink to this headline">¶</a></h1>
+<p>Once the template service and library are installed, the layout of the installation will be as shown
+below.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>.
+├── bin
+│   └── template-service
+├── include
+│   └── template-library
+│       └── templatepublicclass.h
+└── lib
+    ├── libtemplate-library.so
+    └── pkgconfig
+        └── template-library.pc
+</pre></div>
+</div>
 </div>
 
 
