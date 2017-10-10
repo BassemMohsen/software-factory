@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Manifests &mdash; software-factory 0.1.0-564e88a 2017-10-04 documentation</title>
+  <title>Manifests &mdash; software-factory 0.1.0-e41797b 2017-10-10 documentation</title>
   
 
   
@@ -33,7 +33,10 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="software-factory 0.1.0-564e88a 2017-10-04 documentation" href="../../index.html"/> 
+    <link rel="top" title="software-factory 0.1.0-e41797b 2017-10-10 documentation" href="../../index.html"/>
+        <link rel="up" title="Base Platform" href="index.html"/>
+        <link rel="next" title="Creating a new layer" href="../../swf-blueprint/docs/articles/baseplatform/creating-a-new-layer.html"/>
+        <link rel="prev" title="Building the SDK installer" href="../../swf-blueprint/docs/articles/baseplatform/creating-sdk.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -82,15 +85,33 @@
           
             
             
-                <p class="caption"><span class="caption-text">Table of contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+                <p class="caption"><span class="caption-text">Table of contents</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../workflow/index.html">Git workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Base Platform</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Base Platform</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/prerequisites.html">Prerequisites for building a PELUX image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/using-the-repo-tool.html">Using the repo tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building-PELUX-sources.html">Building PELUX sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploying-the-image.html">Writing the image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="booting-on-target-hardware.html">Booting on target hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/creating-sdk.html">Building the SDK installer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Manifests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-manifest">Creating a manifest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-git-repo-for-a-pelux-based-manifest">Creating a git repo for a PELUX-based manifest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tweaking-the-manifest-files">Tweaking the manifest files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/creating-a-new-layer.html">Creating a new layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/variant-concept-in-yocto.html">Variant concept in Yocto</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../ci-and-cd/index.html">Continuous integration and deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sdk/index.html">Software Development Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/templates/index.html">C/C++ templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/intro/index.html">Introduction</a></li>
 </ul>
 
             
@@ -120,6 +141,8 @@
 <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Base Platform</a> &raquo;</li>
       
     <li>Manifests</li>
       <li class="wy-breadcrumbs-aside">
@@ -229,6 +252,15 @@ instance, the <code class="docutils literal"><span class="pre">pelux-intel.xml</
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../swf-blueprint/docs/articles/baseplatform/creating-a-new-layer.html" class="btn btn-neutral float-right" title="Creating a new layer" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../swf-blueprint/docs/articles/baseplatform/creating-sdk.html" class="btn btn-neutral" title="Building the SDK installer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
@@ -256,7 +288,7 @@ instance, the <code class="docutils literal"><span class="pre">pelux-intel.xml</
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1.0-564e88a 2017-10-04',
+            VERSION:'0.1.0-e41797b 2017-10-10',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

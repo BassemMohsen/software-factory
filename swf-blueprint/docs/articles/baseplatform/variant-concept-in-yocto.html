@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using the repo tool &mdash; software-factory 0.1.0-e41797b 2017-10-10 documentation</title>
+  <title>Variant concept in Yocto &mdash; software-factory 0.1.0-e41797b 2017-10-10 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
         <link rel="search" title="Search" href="../../../../search.html"/>
     <link rel="top" title="software-factory 0.1.0-e41797b 2017-10-10 documentation" href="../../../../index.html"/>
         <link rel="up" title="Base Platform" href="../../../../chapters/baseplatform/index.html"/>
-        <link rel="next" title="Building PELUX sources" href="../../../../chapters/baseplatform/building-PELUX-sources.html"/>
-        <link rel="prev" title="Prerequisites for building a PELUX image" href="prerequisites.html"/> 
+        <link rel="next" title="Continuous integration and deployment" href="../../../../chapters/ci-and-cd/index.html"/>
+        <link rel="prev" title="Creating a new layer" href="creating-a-new-layer.html"/> 
 
   
   <script src="../../../../_static/js/modernizr.min.js"></script>
@@ -90,17 +90,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../chapters/workflow/index.html">Git workflow</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../chapters/baseplatform/index.html">Base Platform</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="prerequisites.html">Prerequisites for building a PELUX image</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Using the repo tool</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#obtaining-the-repo-tool">Obtaining the repo tool</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="using-the-repo-tool.html">Using the repo tool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../chapters/baseplatform/building-PELUX-sources.html">Building PELUX sources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../chapters/baseplatform/deploying-the-image.html">Writing the image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../chapters/baseplatform/booting-on-target-hardware.html">Booting on target hardware</a></li>
 <li class="toctree-l2"><a class="reference internal" href="creating-sdk.html">Building the SDK installer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../chapters/baseplatform/creating-a-manifest.html">Manifests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="creating-a-new-layer.html">Creating a new layer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="variant-concept-in-yocto.html">Variant concept in Yocto</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Variant concept in Yocto</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#recommended-variant-management">Recommended variant management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recommended-usage-of-variants">Recommended usage of variants</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
@@ -140,11 +141,11 @@
       
           <li><a href="../../../../chapters/baseplatform/index.html">Base Platform</a> &raquo;</li>
       
-    <li>Using the repo tool</li>
+    <li>Variant concept in Yocto</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../../../_sources/swf-blueprint/docs/articles/baseplatform/using-the-repo-tool.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../../_sources/swf-blueprint/docs/articles/baseplatform/variant-concept-in-yocto.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -154,35 +155,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="using-the-repo-tool">
-<span id="id1"></span><h1>Using the repo tool<a class="headerlink" href="#using-the-repo-tool" title="Permalink to this headline">¶</a></h1>
-<p>The <code class="docutils literal"><span class="pre">repo</span></code> tool is used to obtain the sources of a PELUX release. <code class="docutils literal"><span class="pre">repo</span></code> was originally
-developed by the Android <a class="footnote-reference" href="#android" id="id2">[1]</a> project, and it is used to clone specific versions of git
-repositories into specific locations.</p>
-<div class="section" id="obtaining-the-repo-tool">
-<h2>Obtaining the repo tool<a class="headerlink" href="#obtaining-the-repo-tool" title="Permalink to this headline">¶</a></h2>
-<p>If you already have a directory in your <code class="docutils literal"><span class="pre">$PATH</span></code> for placing user-specific runnables, you should
-use that location; otherwise perform the following steps to add <code class="docutils literal"><span class="pre">~/bin</span></code> (or any directory of your
-choice) to your <code class="docutils literal"><span class="pre">$PATH</span></code>:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir ~/bin
-<span class="nb">echo</span> <span class="s2">&quot;export PATH=~/bin/:</span><span class="nv">$PATH</span><span class="s2">&quot;</span> &gt;&gt; ~/.bashrc
-bash <span class="c1"># needed to reload the ~/.bashrc</span>
-</pre></div>
+  <div class="section" id="variant-concept-in-yocto">
+<h1>Variant concept in Yocto<a class="headerlink" href="#variant-concept-in-yocto" title="Permalink to this headline">¶</a></h1>
+<p>A Yocto project often has to support several variations in software and
+hardware composition, such as supporting a graphical software stack as well as
+a non-graphical software stack on several different CPU architectures.</p>
+<p>A variation in either hardware of software is in the Software Factory referred
+to as a <em>variant</em>.</p>
+<p>Each variant potentially needs its own set of Yocto configuration files (most
+notably, its own <code class="docutils literal"><span class="pre">bblayers.conf</span></code> and <code class="docutils literal"><span class="pre">local.conf</span></code>). Yocto has a built-in
+way to handle deployment of configuration files with its <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code>
+variable which can be supplied to the <code class="docutils literal"><span class="pre">oe-init-build-env</span></code> script
+<a class="footnote-reference" href="#templateconf" id="id1">[1]</a>, and this scheme is also used in the Software Factory.</p>
+<div class="section" id="recommended-variant-management">
+<span id="id2"></span><h2>Recommended variant management<a class="headerlink" href="#recommended-variant-management" title="Permalink to this headline">¶</a></h2>
+<p>The recommended way to handle variants is to keep one directory per variant in
+your layer. The variant directories should go into
+<code class="docutils literal"><span class="pre">&lt;meta-yourlayer&gt;/conf/&lt;variant</span> <span class="pre">name&gt;</span></code>. Each variant should supply a
+<code class="docutils literal"><span class="pre">README</span></code>, <code class="docutils literal"><span class="pre">bblayers.conf.sample</span></code> and <code class="docutils literal"><span class="pre">local.conf.sample</span></code>.</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">README</span></code> contains a short description of the variant, such as the hardware
+it supports and the software variation it supports. For instance, if this
+variant only supports a non-graphical system on a Raspberry Pi 3, this is
+where this should be noted.</li>
+<li><code class="docutils literal"><span class="pre">bblayers.conf.sample</span></code> contains the sample <code class="docutils literal"><span class="pre">bblayers.conf</span></code> which will be
+copied into the users’ <code class="docutils literal"><span class="pre">build/conf</span></code> directory when initializing a new
+build. This <code class="docutils literal"><span class="pre">bblayers.sonf.sample</span></code> is specific to the current variant, and
+should be written to include the layers needed to build the current variant.</li>
+<li><code class="docutils literal"><span class="pre">local.conf.sample</span></code> is also specific to the current variant in the same way
+as <code class="docutils literal"><span class="pre">bblayers.conf.sample</span></code>, but should contain the <code class="docutils literal"><span class="pre">local.conf</span></code> needed for
+the current variant.</li>
+</ul>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You need to replace <code class="docutils literal"><span class="pre">~/.bashrc</span></code> with the correct rc-file for your shell.</p>
-</div>
-<p>Then download the repo tool binary to <code class="docutils literal"><span class="pre">~/bin</span></code>:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo
-chmod a+x ~/bin/repo
-</pre></div>
-</div>
-<p>The <code class="docutils literal"><span class="pre">repo</span></code> command should now be available from your shell.</p>
-<table class="docutils footnote" frame="void" id="android" rules="none">
+<div class="section" id="recommended-usage-of-variants">
+<h2>Recommended usage of variants<a class="headerlink" href="#recommended-usage-of-variants" title="Permalink to this headline">¶</a></h2>
+<p>A variant is selected using the <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> variable when issuing the
+<code class="docutils literal"><span class="pre">oe-init-build-env</span></code> script from the <code class="docutils literal"><span class="pre">poky</span></code> project. The scheme described in
+<a class="reference internal" href="#recommended-variant-management"><span class="std std-ref">Recommended variant management</span></a> is fully compatible with the
+<code class="docutils literal"><span class="pre">oe-init-build-env</span></code> script, all the user needs to do is to specify the full
+path to the desired variant directory when running the script. More information
+on the <code class="docutils literal"><span class="pre">TEMPLATECONF</span></code> variable is available in <a class="footnote-reference" href="#templateconf" id="id3">[1]</a>.</p>
+<table class="docutils footnote" frame="void" id="templateconf" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="http://source.android.com">http://source.android.com</a></td></tr>
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> <a class="reference external" href="http://www.yoctoproject.org/docs/latest/dev-manual/dev-manual.html#creating-a-custom-template-configuration-directory">http://www.yoctoproject.org/docs/latest/dev-manual/dev-manual.html#creating-a-custom-template-configuration-directory</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -195,10 +211,10 @@ chmod a+x ~/bin/repo
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../../../chapters/baseplatform/building-PELUX-sources.html" class="btn btn-neutral float-right" title="Building PELUX sources" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../../../../chapters/ci-and-cd/index.html" class="btn btn-neutral float-right" title="Continuous integration and deployment" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="prerequisites.html" class="btn btn-neutral" title="Prerequisites for building a PELUX image" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="creating-a-new-layer.html" class="btn btn-neutral" title="Creating a new layer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

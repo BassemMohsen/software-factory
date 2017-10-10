@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Downloading and installing the SDK &mdash; software-factory 0.1.0-e41797b 2017-10-10 documentation</title>
+  <title>Booting on target hardware &mdash; software-factory 0.1.0-e41797b 2017-10-10 documentation</title>
   
 
   
@@ -33,7 +33,10 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="software-factory 0.1.0-e41797b 2017-10-10 documentation" href="../../index.html"/> 
+    <link rel="top" title="software-factory 0.1.0-e41797b 2017-10-10 documentation" href="../../index.html"/>
+        <link rel="up" title="Base Platform" href="index.html"/>
+        <link rel="next" title="Building the SDK installer" href="../../swf-blueprint/docs/articles/baseplatform/creating-sdk.html"/>
+        <link rel="prev" title="Writing the image" href="deploying-the-image.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -83,11 +86,26 @@
             
             
                 <p class="caption"><span class="caption-text">Table of contents</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../workflow/index.html">Git workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../baseplatform/index.html">Base Platform</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Base Platform</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/prerequisites.html">Prerequisites for building a PELUX image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/using-the-repo-tool.html">Using the repo tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building-PELUX-sources.html">Building PELUX sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploying-the-image.html">Writing the image</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Booting on target hardware</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nuc">NUC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#raspberry-pi-3">Raspberry Pi 3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/creating-sdk.html">Building the SDK installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating-a-manifest.html">Manifests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/creating-a-new-layer.html">Creating a new layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../swf-blueprint/docs/articles/baseplatform/variant-concept-in-yocto.html">Variant concept in Yocto</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../ci-and-cd/index.html">Continuous integration and deployment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Software Development Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sdk/index.html">Software Development Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/templates/index.html">C/C++ templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../swf-blueprint/docs/articles/intro/index.html">Introduction</a></li>
@@ -121,11 +139,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
       
-    <li>Downloading and installing the SDK</li>
+          <li><a href="index.html">Base Platform</a> &raquo;</li>
+      
+    <li>Booting on target hardware</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/chapters/sdk/installing-the-sdk.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/chapters/baseplatform/booting-on-target-hardware.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -135,39 +155,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="downloading-and-installing-the-sdk">
-<h1>Downloading and installing the SDK<a class="headerlink" href="#downloading-and-installing-the-sdk" title="Permalink to this headline">¶</a></h1>
-<p>Download the SDK for your hardware from the <a class="reference external" href="http://pelux.io/downloads">PELUX website</a>. The SDK is a very huge file as it
-contains the whole sysroot for the project in addition to some native tools. Depending on the
-internet connectivity speed it could take a while.</p>
+  <div class="section" id="booting-on-target-hardware">
+<h1>Booting on target hardware<a class="headerlink" href="#booting-on-target-hardware" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="nuc">
+<h2>NUC<a class="headerlink" href="#nuc" title="Permalink to this headline">¶</a></h2>
+<p>Plug in the USB-stick and boot the target, make sure to configure EFI to boot from USB. No other actions should be needed.</p>
+</div>
+<div class="section" id="raspberry-pi-3">
+<h2>Raspberry Pi 3<a class="headerlink" href="#raspberry-pi-3" title="Permalink to this headline">¶</a></h2>
+<p>Insert the SD-card into the Raspberry Pi and boot it up.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Note that the version number at the end of the SDK download file is not the version of the SDK but in fact the version number of poky, which is the upstream Yocto distribution PELUX is using.</p>
+<p class="last">Login as user <code class="docutils literal"><span class="pre">root</span></code>.</p>
 </div>
-<div class="section" id="installing-the-sdk">
-<span id="installing-sdk"></span><h2>Installing the SDK<a class="headerlink" href="#installing-the-sdk" title="Permalink to this headline">¶</a></h2>
-<p>The SDK file is not executable by default. This needs to be changed with <cite>chmod</cite>. If you downloaded
-the SDK from the internet, the <code class="docutils literal"><span class="pre">&lt;SDK</span> <span class="pre">location&gt;</span></code> is typically <code class="docutils literal"><span class="pre">~/Downloads</span></code>.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> &lt;SDK location&gt;
-chmod +x poky-glibc-x86_64-&lt;image-name&gt;-&lt;arch&gt;-toolchain-&lt;version&gt;.sh
-</pre></div>
-</div>
-<p>It is a self extracting shell script which can be executed. This will start an interactive program
-which first asks where to install the SDK. The easiest way is to install it in your <cite>home</cite> directory
-in it’s own directory, like <cite>~/sdk</cite>, instead of the default which is <cite>/opt</cite>. <cite>/opt</cite> is most probably
-not prepared for your user to install anything into.</p>
-<p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>➜ jdoe@tux Downloads ./poky-glibc-x86_64-core-image-pelux-qt-corei7-64-toolchain-2.2.1.sh
-Poky <span class="o">(</span>Yocto Project Reference Distro<span class="o">)</span> SDK installer version <span class="m">2</span>.2.1
-<span class="o">=================================================================</span>
-Enter target directory <span class="k">for</span> SDK <span class="o">(</span>default: /opt/poky/2.2.1<span class="o">)</span>: ~/sdk
-You are about to install the SDK to <span class="s2">&quot;/home/jdoe/sdk&quot;</span>. Proceed<span class="o">[</span>Y/n<span class="o">]</span>? Y
-Extracting SDK.............done
-Setting it up...done
-SDK has been successfully <span class="nb">set</span> up and is ready to be used.
-</pre></div>
-</div>
-<p>Now the SDK is installed and can be used.</p>
 </div>
 </div>
 
@@ -175,6 +175,15 @@ SDK has been successfully <span class="nb">set</span> up and is ready to be used
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../swf-blueprint/docs/articles/baseplatform/creating-sdk.html" class="btn btn-neutral float-right" title="Building the SDK installer" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="deploying-the-image.html" class="btn btn-neutral" title="Writing the image" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

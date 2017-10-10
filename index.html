@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to the Software Factory documentation &mdash; software-factory 0.1.0-564e88a 2017-10-04 documentation</title>
+  <title>Welcome to the Software Factory documentation &mdash; software-factory 0.1.0-e41797b 2017-10-10 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="software-factory 0.1.0-564e88a 2017-10-04 documentation" href="#"/>
-        <link rel="next" title="Introduction" href="chapters/intro/index.html"/> 
+    <link rel="top" title="software-factory 0.1.0-e41797b 2017-10-10 documentation" href="#"/>
+        <link rel="next" title="Git workflow" href="chapters/workflow/index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -83,15 +83,15 @@
           
             
             
-                <p class="caption"><span class="caption-text">Table of contents:</span></p>
+                <p class="caption"><span class="caption-text">Table of contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="chapters/intro/index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/workflow/index.html">Git workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/baseplatform/index.html">Base Platform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/ci-and-cd/index.html">Continuous integration and deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/sdk/index.html">Software Development Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swf-blueprint/docs/articles/templates/index.html">C/C++ templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swf-blueprint/docs/articles/intro/index.html">Introduction</a></li>
 </ul>
 
             
@@ -138,11 +138,13 @@
             
   <div class="section" id="welcome-to-the-software-factory-documentation">
 <h1>Welcome to the Software Factory documentation<a class="headerlink" href="#welcome-to-the-software-factory-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Revision: 0.1.0-564e88a 2017-10-04</p>
+<p>Revision: 0.1.0-e41797b 2017-10-10</p>
+<hr class="docutils" />
+<p>The Software Factory documentation is the central space where we collect all useful information on how to work within the project.</p>
+<hr class="docutils" />
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Table of contents:</span></p>
+<p class="caption"><span class="caption-text">Table of contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="chapters/intro/index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/workflow/index.html">Git workflow</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="chapters/workflow/index.html#general-setup">General setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapters/workflow/index.html#for-each-set-of-changes">For each set of changes</a></li>
@@ -154,42 +156,61 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/baseplatform/index.html">Base Platform</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#prerequisites-for-building-a-proj-name-image">Prerequisites for building a PELUX image</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#dependencies-for-debian-users">Dependencies for Debian users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/prerequisites.html">Prerequisites for building a PELUX image</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/prerequisites.html#dependencies-for-debian-users">Dependencies for Debian users</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#using-the-repo-tool">Using the repo tool</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#obtaining-the-repo-tool">Obtaining the repo tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/using-the-repo-tool.html">Using the repo tool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/using-the-repo-tool.html#obtaining-the-repo-tool">Obtaining the repo tool</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#obtaining-a-pelux-release">Obtaining a PELUX release</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#writing-the-image">Writing the image</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#general-instructions">General instructions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#image-names-for-pelux-targets">Image names for PELUX targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/building-PELUX-sources.html">Building PELUX sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/deploying-the-image.html">Writing the image</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/deploying-the-image.html#general-instructions">General instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/deploying-the-image.html#image-names-for-pelux-targets">Image names for PELUX targets</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#booting-on-target-hardware">Booting on target hardware</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#nuc">NUC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#raspberry-pi-3">Raspberry Pi 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/booting-on-target-hardware.html">Booting on target hardware</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/booting-on-target-hardware.html#nuc">NUC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/booting-on-target-hardware.html#raspberry-pi-3">Raspberry Pi 3</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#building-the-sdk-installer">Building the SDK installer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#manifests">Manifests</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#creating-a-manifest">Creating a manifest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/creating-sdk.html">Building the SDK installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/creating-a-manifest.html">Manifests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/creating-a-manifest.html#creating-a-manifest">Creating a manifest</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="chapters/baseplatform/index.html#creating-a-new-layer">Creating a new layer</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#using-poky-scripts-for-generating-the-layer">Using Poky scripts for generating the layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapters/baseplatform/index.html#using-the-new-layer-in-a-build">Using the new layer in a build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/creating-a-new-layer.html">Creating a new layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/creating-a-new-layer.html#using-poky-scripts-for-generating-the-layer">Using Poky scripts for generating the layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/creating-a-new-layer.html#using-the-new-layer-in-a-build">Using the new layer in a build</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/variant-concept-in-yocto.html">Variant concept in Yocto</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/variant-concept-in-yocto.html#recommended-variant-management">Recommended variant management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/baseplatform/variant-concept-in-yocto.html#recommended-usage-of-variants">Recommended usage of variants</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/ci-and-cd/index.html">Continuous integration and deployment</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapters/ci-and-cd/index.html#setting-up-automated-testing-on-a-nuc-using-yocto">Setting up automated testing on a NUC using Yocto</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapters/ci-and-cd/index.html#how-it-works">How it works</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapters/ci-and-cd/index.html#preparing-the-nuc">Preparing the NUC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapters/ci-and-cd/index.html#building-and-testing-an-image">Building and testing an image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swf-blueprint/docs/articles/infrastructure/ci-cd/host.html">Infrastructure host</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/infrastructure/ci-cd/host.html#host-nginx-configuration">Host Nginx configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swf-blueprint/docs/articles/infrastructure/ci-cd/jenkins.html">Jenkins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/infrastructure/ci-cd/jenkins.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/infrastructure/ci-cd/jenkins.html#plugins">Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swf-blueprint/docs/articles/infrastructure/ci-cd/build-slaves.html">Build Slaves</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/infrastructure/ci-cd/build-slaves.html#running-a-public-slave">Running a public slave</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swf-blueprint/docs/articles/infrastructure/ci-cd/build-slaves.html#running-a-private-slave">Running a private slave</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/ci-and-cd/setting-up-automated-testing-yocto.html">Setting up automated testing on a NUC using Yocto</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/ci-and-cd/setting-up-automated-testing-yocto.html#how-it-works">How it works</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/ci-and-cd/setting-up-automated-testing-yocto.html#preparing-the-nuc">Preparing the NUC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/ci-and-cd/setting-up-automated-testing-yocto.html#building-and-testing-an-image">Building and testing an image</a></li>
 </ul>
 </li>
 </ul>
@@ -233,6 +254,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="swf-blueprint/docs/articles/licensing/index.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swf-blueprint/docs/articles/intro/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swf-blueprint/docs/articles/intro/index.html#how-to-use-the-blueprint">How to use the blueprint</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -244,7 +269,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="chapters/intro/index.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="chapters/workflow/index.html" class="btn btn-neutral float-right" title="Git workflow" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -276,7 +301,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1.0-564e88a 2017-10-04',
+            VERSION:'0.1.0-e41797b 2017-10-10',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
